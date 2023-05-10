@@ -20,7 +20,10 @@ class EmployeeController extends Controller
         
         $employee = Employee::select('employees.*', 'jobs.name as job_name')
         ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')->orderBy('id','desc')
-        ->get();
+        ->get()->map(function ($item) {
+            $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
+            return $item;
+        });
         $titulo = "Gestion de empleados";
         $empresa = $this->empresa;
         return view('employee.index',compact('employee','titulo','empresa'));
@@ -92,11 +95,20 @@ class EmployeeController extends Controller
     }
     
 
-    public function destroy(Employee $employee)
+    // public function destroy(Employee $employee)
+    // {
+    //     $employee->delete();
+    //     return redirect()->route('employee.index');
+    // }
+    public function destroy($id)
     {
-        $employee->delete();
-        return redirect()->route('employee.index');
+        $empleado = Employee::find($id);
+        $name = $empleado->name . ' '.$empleado->lastname;
+        $empleado->delete();
+    
+        // return response()->json(['message' => $id]);
+        return response()->json(['message' => $name]);
+
     }
-  
 }
 

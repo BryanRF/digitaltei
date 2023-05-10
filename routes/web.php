@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 Route::get('/', HomeController::class)->name('home');
 Route::resource('empleados',EmployeeController::class)->
 parameters(['empleados'=>'employee'])->names('employee');
+Route::delete('empleados/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroyed');
 
 Route::resource('productos',ProductController::class)->
 parameters(['productos'=>'product'])->names('product');

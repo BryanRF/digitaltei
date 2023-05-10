@@ -19,7 +19,10 @@ class DatatablesController extends Controller
     {
         $data =  Employee::select('employees.*', 'jobs.name as job_name')
         ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')->orderBy('id','desc')
-        ->get();
+        ->get()->map(function ($item) {
+            $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
+            return $item;
+        });
         return datatables()->collection($data)->toJson();
         // return Datatables::of($data)->make(true);
     }
