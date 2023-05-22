@@ -16,5 +16,7 @@ parameters(['productos'=>'product'])->names('product');
 
 Route::get('datatable/employee', [DataTablesController::class, 'employee'])->name('datatable.employee');
 Route::get('datatable/product', [DataTablesController::class, 'product'])->name('datatable.product');
+Route::get('datatable/category', [DataTablesController::class, 'category'])->name('datatable.category');
+Route::get('datatable/subcategory', [DataTablesController::class, 'subcategory'])->name('datatable.subcategory');
 // Route::delete('/registros/{id}', 'RegistroController@destroy')->name('registros.destroy');
 // Route::view("ejemplo","ejemplo")->name('ejemplo');

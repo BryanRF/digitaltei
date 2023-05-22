@@ -35,72 +35,7 @@
                     </tr>
                 </thead>
                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                   {{-- <!--   @foreach($employee as $value)
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
-                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full" src="{{ Storage::url($value->avatar) }}"/>
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">{{$value->name}} {{$value->lastname}}</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        - {{$value->job_name}}
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->document}}')" title="Copiar">{{$value->document}}</button>
-                        </td>
-                        <td class="px-4 py-3 text-xs">
-                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->email}}')" title="Copiar">{{$value->email}}</button>
-                        </td>
-                       
-                        <td class="px-4 py-3 text-sm ">
-                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->phone}}')" title="Copiar">{{$value->phone}}</button>
-
-                            
-                        </td>
-              
-                        <td class="px-4 py-3 text-sm ">
-                            {{ \Carbon\Carbon::parse($value->birthday_date)->format('d/m/Y') }}
-                        </td>
-                        <td class="px-4 py-3 text-sm text-center no-export">
-                            @if($value->file != null)
-                            @if (strpos($value->file, '.pdf') !== false)
-                                <a href="{{ Storage::url($value->file) }}" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2  text-center rounded" download>
-                                    <i class="fas fa-download"></i> PDF
-                                </a>
-                            @elseif (strpos($value->file, '.doc') !== false)
-                                <a href="{{ Storage::url($value->file) }}" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2  text-center rounded" download>
-                                    <i class="fas fa-download"></i> Word
-                                </a>
-                            @endif
-                            @else
-                                <button disabled class=" text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">
-                                    <i class="fas fa-download"></i> Sin registro
-                                </button>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-sm text-center no-export">
-                       
-                            {!! Form::open(['route' => ['employee.destroy', $value], 'method' => 'delete']) !!}
-                            <a href ="{{route('employee.edit',$value)}}"  style=" border: none;" 
-                            class="p-2 focus:outline-none focus:shadow-outline-gray
-                             editar text-sm font-medium leading-5 text-gray-700
-                              hover:text-gray-900 transition-colors duration-150
-                               dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>
-                            <button type="button"  class="p-2 focus:outline-none focus:shadow-outline-gray eliminar 
-                                text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded">
-                                <i class="fas fa-trash-alt"></i> </button>
-                                @csrf
-                            {!! Form::close() !!}
-                        </td>
-                    </tr>
-                    @endforeach --> --}}
+                  
                 </tbody>
             </table>
         </div>
@@ -339,7 +274,6 @@ function deleteFila(id) {
             }).then(function () {
             window.location.href = '{{ route("employee.index") }}';
             });
-
         }
     }).fail(function () {
         Swal.fire({
@@ -381,27 +315,71 @@ function deleteFila(id) {
 
 
 
-    //     $(document).on('click', '.eliminar', function () {
-    //     var id = $(this).data('id');
-    //     if (confirm('¿Está seguro de que desea eliminar este empleado?')) {
-    //         $.ajax({
-    //             url: '{{ route("employee.destroy", ":id") }}'.replace(':id', id),
-    //             type: 'DELETE',
-    //             data: {
-    //                 '_token': '{{ csrf_token() }}'
-    //             },
-    //             success: function (data) {
-    //                 console.log(data);
-    //                 Swal.fire(
-    //                     '¡Eliminado!',
-    //                     'El empleado ha sido eliminado.',
-    //                     'success'
-    //                 ).then(function () {
-    //                     window.location.href = '{{ route('employee.index') }}';
-    //                 });
-    //             }
-    //         });
-    //     }
-    // });
 </script>
+ {{-- <!--   @foreach($employee as $value)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                <!-- Avatar with inset shadow -->
+                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                    <img class="object-cover w-full h-full rounded-full" src="{{ Storage::url($value->avatar) }}"/>
+                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">{{$value->name}} {{$value->lastname}}</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                                        - {{$value->job_name}}
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->document}}')" title="Copiar">{{$value->document}}</button>
+                        </td>
+                        <td class="px-4 py-3 text-xs">
+                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->email}}')" title="Copiar">{{$value->email}}</button>
+                        </td>
+                       
+                        <td class="px-4 py-3 text-sm ">
+                            <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText('{{$value->phone}}')" title="Copiar">{{$value->phone}}</button>
+
+                            
+                        </td>
+              
+                        <td class="px-4 py-3 text-sm ">
+                            {{ \Carbon\Carbon::parse($value->birthday_date)->format('d/m/Y') }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-center no-export">
+                            @if($value->file != null)
+                            @if (strpos($value->file, '.pdf') !== false)
+                                <a href="{{ Storage::url($value->file) }}" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2  text-center rounded" download>
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            @elseif (strpos($value->file, '.doc') !== false)
+                                <a href="{{ Storage::url($value->file) }}" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2  text-center rounded" download>
+                                    <i class="fas fa-download"></i> Word
+                                </a>
+                            @endif
+                            @else
+                                <button disabled class=" text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">
+                                    <i class="fas fa-download"></i> Sin registro
+                                </button>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3 text-sm text-center no-export">
+                       
+                            {!! Form::open(['route' => ['employee.destroy', $value], 'method' => 'delete']) !!}
+                            <a href ="{{route('employee.edit',$value)}}"  style=" border: none;" 
+                            class="p-2 focus:outline-none focus:shadow-outline-gray
+                             editar text-sm font-medium leading-5 text-gray-700
+                              hover:text-gray-900 transition-colors duration-150
+                               dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>
+                            <button type="button"  class="p-2 focus:outline-none focus:shadow-outline-gray eliminar 
+                                text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded">
+                                <i class="fas fa-trash-alt"></i> </button>
+                                @csrf
+                            {!! Form::close() !!}
+                        </td>
+                    </tr>
+                    @endforeach --> --}}
 @endsection
