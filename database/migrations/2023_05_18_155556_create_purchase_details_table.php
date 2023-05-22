@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('purchase_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('purchase_id')->required();
-            // Agrega aquí los campos adicionales necesarios para la tabla de detalles de compras
+            $table->unsignedInteger('purchase_id');
+            $table->unsignedInteger('product_id');
+            $table->integer('quantity');
+            $table->decimal('unit_price', 8, 2);
+            $table->decimal('total', 8, 2);
             $table->timestamps();
             $table->softDeletes();
-            
             $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->foreign('product_id')->references('id')->on('products');
         });
         
     }

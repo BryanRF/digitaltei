@@ -16,10 +16,15 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('employee_id')->required();
-            // Agrega aquí los campos necesarios para la tabla de contratos
+            $table->unsignedInteger('job_id')->required();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('file')->nullable();
+            $table->string('position');
+            $table->decimal('salary', 8, 2);
             $table->timestamps();
             $table->softDeletes();
-            
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->foreign('employee_id')->references('id')->on('employees');
         });
         

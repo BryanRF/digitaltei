@@ -15,8 +15,15 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
-            // Agrega aquí los campos necesarios para la tabla de facturas
-            $table->timestamps();
+                $table->string('number');
+                $table->date('date_start');
+                $table->date('date_end')->nulleable();
+                $table->decimal('total_amount', 8, 2);
+                $table->unsignedInteger('customer_id');
+                $table->unsignedInteger('service_id');
+                $table->foreign('customer_id')->references('id')->on('customers');
+                $table->foreign('service_id')->references('id')->on('services');
+                $table->timestamps();
             $table->softDeletes();
         });
         

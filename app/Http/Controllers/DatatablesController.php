@@ -55,12 +55,15 @@ class DatatablesController extends Controller
     {
         $data = Category::select(
             'categories.id',
-            'categories.name'
+            'categories.name',
+            'categories.image'
         )
         // ->where('products.status', true)
         ->orderBy('categories.id', 'DESC')
         ->get();
-        return datatables()->collection($data)->toJson();
+
+        return json_encode($data);
+        // return datatables()->collection($data)->toJson();
         // return Datatables::of($data)->make(true);
     }
     public function subcategory()
