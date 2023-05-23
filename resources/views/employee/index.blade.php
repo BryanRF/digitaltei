@@ -54,8 +54,11 @@
 	minute: 'numeric',
 	second: 'numeric'
  }).replace(',', '').replace(/\//g, '-');
+
+ $.fn.dataTable.ext.errMode = 'none';
+ 
     $('table.display').DataTable({
-        "ajax":"{{route('datatable.employee')}}",
+        ajax:"{{route('datatable.employee')}}",
         columns: [
         { 
             render: function (data, type, row, meta) {
@@ -72,8 +75,9 @@
                         '</div>';
             },
         },
-        { data: 'job_name', name: 'job_name' },
-
+        {
+             data: 'job_name', name: 'job_name' 
+        },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
@@ -117,21 +121,21 @@
             },
             name: 'file',
             className: 'px-4 py-3 no-export'
-        },{
+        },
+        {
             render: function (data, type, row, meta) {
+        var employeeId = row.id;
+        var editUrl = "{{ route('employee.edit', ':employee_id') }}";
+        editUrl = editUrl.replace(':employee_id', employeeId);
+
+
     var html = ' <a href="{{route("employee.edit", ":employee_id")}}" style="border: none;" class="p-2 focus:outline-none focus:shadow-outline-gray editar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>'+
-        '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '"><i class="fas fa-trash-alt"></i></button>';
-
+               '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '"><i class="fas fa-trash-alt"></i></button>';
         html = html.replace(/:employee_id/g, row.id);
-
     return html;
-        }}
-
-
-    
+        }
+        }
     ],
-            
-  
         "paging": true,
 		"lengthChange": true,
 		"searching": true,
@@ -311,6 +315,7 @@ function deleteFila(id) {
     })
     
         }
+        
         $('button.dt-button').removeClass('dt-button');
 
 

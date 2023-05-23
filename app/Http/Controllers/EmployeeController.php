@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-
+use Illuminate\Support\Facades\Session;
 class EmployeeController extends Controller
 {
 
@@ -39,13 +39,14 @@ class EmployeeController extends Controller
     public function create()
     {
         $jobs = Job::all();
-       
+        $data[]=null;
         $titulo = "Nuevo empleado";
         $empresa = $this->empresa;
-        return view('employee.create',compact('titulo','jobs','empresa'));
+        return view('employee.create',compact('titulo','jobs','empresa','data'));
     }
     public function store(StoreEmployee $request)
     {
+        $success=null;
         $data = $request->all();
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
@@ -61,7 +62,9 @@ class EmployeeController extends Controller
             $data['avatar'] = 'images/default.png';
         }
         if (Employee::create($data)) {
-            return redirect()->route('employee.index');
+            // Toastr::success('Registro exitoso', 'Éxito');
+            $success="Registrado correctamente";
+            return redirect()->route('employee.create')->with('success', $success);
         } else {
             unlink($ruta);
             return redirect()->back()->with('error', 'No se pudo registrar el registro.');

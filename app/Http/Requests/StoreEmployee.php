@@ -54,8 +54,31 @@ class StoreEmployee extends FormRequest
             'jobs_id.required'=>'Debe seleccionar el cargo',
             'avatar.image' =>'El archivo seleccionado no es una imagen',
             'avatar.mimes' =>'Solo se permiten los formatos jpeg,png,jpg,gif y svg',
-            'file.mimes' => 'Solo se permiten los formatos PDF o Word (doc, docx).'
+            'file.mimes' => 'Solo se permiten los formatos PDF o Word (pdf, doc, docx).'
         ];
     }
+//     public function response(array $error){
+//         return redirect ($this->redirect)->withError($error,'formulario')->withInput();
+
+//     }
+//     protected function failedValidation(Validator $validator)
+//     {
+//        if($this->wantsJson())
+//        {
+//            $response = response()->json([
+//                'status' => 400,
+//                'errors' => $validator->errors()//$validator->errors()
+//            ]);
+//        }else{
+//            $response = redirect()
+//                ->route('employee.index')
+//                ->with('message', 'Ops! Ocurrio un error')
+//                ->withErrors($validator);
+//        }
+   
+//        throw (new ValidationException($validator, $response))
+//            ->errorBag($this->errorBag)
+//            ->redirectTo($this->getRedirectUrl());
+//    }
 
 }

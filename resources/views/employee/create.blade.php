@@ -20,10 +20,10 @@
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="name">
-                Nombre <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                Nombres <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
-            id="name" type="text" name="name"   placeholder="Nombre">
+            id="name" value="{{ old('name') }}" type="text" name="name"   placeholder="Nombre">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('name') 
                 {{($message)}}
@@ -32,9 +32,9 @@
         </div>
         <div class="w-full mb-6 md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="lastname">
-                Apellido <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                Apellidos <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
-            <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('lastname') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="lastname" type="text" name="lastname"   placeholder="Apellido">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('lastname') 
@@ -48,7 +48,7 @@
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="document">
                 DNI <i class="fa-regular fas fa-circle-exclamation" title="Deber ser unico"></i>
             </label>
-            <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('document') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="document" type="text" name="document"   placeholder="Documento">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('document') 
@@ -60,7 +60,7 @@
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="email">
                 Correo Electrónico <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
-            <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('email') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="email" type="email" name="email"  placeholder="Correo Electrónico">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('email') 
@@ -74,7 +74,7 @@
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="address">
                 Dirección
             </label>
-            <input class="block w-full mt-1 text-sm  text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('address') }}" class="block w-full mt-1 text-sm  text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="address" type="text" name="address"  placeholder="Dirección">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('address') 
@@ -86,7 +86,7 @@
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="birthday_date">
                 Fecha de Nacimiento <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
-            <input class="block w-full mt-1 text-sm border-gray-600  text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('birthday_date') }}" class="block w-full mt-1 text-sm border-gray-600  text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="birthday_date" type="date" name="birthday_date"   placeholder="Fecha de Nacimiento">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('birthday_date') 
@@ -103,8 +103,8 @@
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
             id="gender" name="gender">
             <option  value="" >Seleccione una opcion</option>
-            <option value="Masculino" >Masculino</option>
-            <option value="Femenino" >Femenino</option>
+            <option value="Masculino" @if(old('gender') === 'Masculino') selected @endif>Masculino</option>
+            <option value="Femenino" @if(old('gender') === 'Femenino') selected @endif>Femenino</option>
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('gender') 
@@ -116,7 +116,7 @@
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="phone">
                 Teléfono <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
-            <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
+            <input value="{{ old('phone') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="phone" type="tel" name="phone"   placeholder="Teléfono">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('phone') 
@@ -128,16 +128,16 @@
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="file">
-                Documentos
+                Documentos (CV, Copia DNI, etc)
             </label>
             <div class="relative w-full">
-                <input id="file" name="file" type="file" class="block w-full text-sm text-slate-500
+                <input value="{{ old('file') }}" id="file" name="file" type="file" class="block w-full text-sm text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
                   file:text-sm file:font-semibold
                   file:bg-amber-50 file:text-amber-700
                   hover:file:bg-amber-100 " placeholder="Seleccione un archivo">
-                <span class="file:text-sm file:font-medium text-slate-500 " id="document_name"></span>
+                <span class="file:text-sm file:font-medium text-slate-500 " id="document_name">{{ old('file') }}</span>
               </div>
               <span class="text-xs text-red-600 dark:text-red-400">
                 @error('file')
@@ -155,7 +155,7 @@
                     
                   </div>
                   <label class="block w-full">
-                    <input type="file" id="avatar" name="avatar" accept="image/*" class="block w-full text-sm text-slate-500
+                    <input value="{{ old('avatar') }}" type="file" id="avatar" name="avatar" accept="image/*" class="block w-full text-sm text-slate-500
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0
                     file:text-sm file:font-semibold
@@ -180,7 +180,7 @@
             <option  value="" >Seleccione una opcion</option>
 
                 @foreach($jobs as $job)
-                    <option  value="{{($job->id)}}" >{{($job->name)}}</option>
+                <option value="{{ $job->id }}" @if(old('jobs_id') == $job->id) selected @endif>{{ $job->name }}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
@@ -191,10 +191,10 @@
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="enabled">
-                Habilitar usuario <i class="fa-regular fas fa-circle-question" title="Permitir creacion de usuario"></i>
+                Habilitar usuario <i class="fa-regular fas fa-circle-question" title="Permitir creacion de usuario para acceder al sistema."></i>
             </label>
             <input class="form-checkbox text-indigo-600 dark:text-indigo-400"
-            id="isUser" type="checkbox" name="isUser" value="" >
+            id="isUser" type="checkbox" name="isUser" value="0" >
         </div>
     </div>
 <div class="flex flex-wrap">
@@ -211,4 +211,25 @@
 </div>
 </form>
     </div>
-  </div> @endsection
+  </div>
+  
+  @if(session('success') != null)
+  <script>
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: false,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+ })
+     Toast.fire({
+    icon: 'success',
+    title: 'Registrado correctamente'
+    })
+  </script>
+@endif
+  @endsection

@@ -2,16 +2,24 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\API\EmployeeController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\SubCategoryController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resource('empleados',EmployeeController::class)->parameters(['empleados'=>'employee'])->names('employee');
-Route::resource('productos',ProductController::class)->parameters(['productos'=>'products'])->names('products');
-Route::resource('categorias',CategoryController::class)->parameters(['categorias'=>'categories'])->names('categories');
-Route::resource('subcategorias',SubCategoryController::class)->parameters(['subcategorias'=>'sub_categories'])->names('sub_categories');
+Route::resource('empleados',EmployeeController::class)->names('employee');
+Route::resource('productos',ProductController::class)->names('products');
+Route::resource('categorias',CategoryController::class)->names('categories');
+Route::resource('subcategorias',SubCategoryController::class)->names('sub_categories');
+
+// Route::group(['middleware' => 'auth:api'], function () {
+//     // Rutas protegidas que requieren autenticación
+//     Route::resource('empleados', EmployeeController::class)->names('employee');
+//     Route::resource('productos', ProductController::class)->names('products');
+//     Route::resource('categorias', CategoryController::class)->names('categories');
+//     Route::resource('subcategorias', SubCategoryController::class)->names('sub_categories');
+// });
