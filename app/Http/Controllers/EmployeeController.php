@@ -61,8 +61,15 @@ class EmployeeController extends Controller
         else {
             $data['avatar'] = 'images/default.png';
         }
+        if ($request->hasFile('file')) {
+            $document = $request->file('file');
+            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$file->getClientOriginalExtension();
+            $ruta= storage_path().'\app\public\documents/'.$filename;
+            Storage::put($ruta, file_get_contents($document));
+            $data['file'] = 'documents/'.$filename;
+
+        }
         if (Employee::create($data)) {
-            // Toastr::success('Registro exitoso', 'Éxito');
             $success="Registrado correctamente";
             return redirect()->route('employee.create')->with('success', $success);
         } else {
@@ -86,9 +93,17 @@ class EmployeeController extends Controller
         else {
             $data['avatar'] = $employee->avatar;
         }
-        if (!$request->hasFile('avatar')) {
+        if ($request->hasFile('file')) {
+            $document = $request->file('file');
+            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$document->getClientOriginalExtension();
+            $ruta = storage_path('app/public/documents/'.$filename);
+            $document->move(storage_path('app/public/documents'), $filename);
+            $data['file'] = 'documents/'.$filename;
+        }else{
             $data['file'] = $employee->file;
         }
+        
+        
         if ($employee->update($data)) {
             return redirect()->route('employee.index');
         } else {
