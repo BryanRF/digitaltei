@@ -26,12 +26,12 @@ class EmployeeSeeder extends Seeder
         $employee->email="rfreyrebrayaned@gmail.com";
         $employee->address="Peru, Lambayeque";
         $employee->phone="+51998511769";
-        $employee->avatar = 'images/default.png';
+        $employee->avatar = 'images/0twcwAJ0gXptdkaUWyGq.png';
         $employee->birthday_date ="1999-12-26";
         $employee->gender ="Masculino";
         $employee->jobs_id=1;
         $employee->isUser=1;
         $employee->save();
-        Employee::factory(20)->create();
+        Employee::factory(2000)->create();
     }
 }

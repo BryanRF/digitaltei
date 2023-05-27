@@ -1,31 +1,19 @@
 @extends('layouts.base')
 @section('content')
-
 <div class="container px-6 mx-auto grid">
     <div class="grid grid-cols-6">
         <h2 class="col-span-6 md:col-span-3 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{$titulo}}
-            <a href="{{route('employee.create')}}"
+            <a href="{{route('employee.index')}}"
                 class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
-                Nuevo
-                
-            </a>
-            <a href="{{route('recycle.index')}}"
-                class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
-                Papelera <i class=" fas  fa-trash-can-arrow-up"></i>
-                
+                Regresar a la lista
             </a>
         </h2>
-      
     </div>
   
-   
     <!-- New Table -->
     <div class="w-full overflow-hidden bg-white dark:bg-gray-800 rounded-lg text-gray-500  shadow-xs dark:text-gray-400">
-        
-        
         <div class="w-full overflow-x-auto ">
-            
             <table class="w-full whitespace-no-wrap display">
                 <thead>
                     <tr class="text-xs  font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -61,8 +49,8 @@
 
  $.fn.dataTable.ext.errMode = 'none';
  
-    t=$('table.display').DataTable({
-        ajax:"{{route('datatable.employee')}}",
+    $('table.display').DataTable({
+        ajax:"{{route('datatable.employee.trashed')}}",
         columns: [
         { 
             render: function (data, type, row, meta) {
@@ -133,8 +121,7 @@
         editUrl = editUrl.replace(':employee_id', employeeId);
 
 
-    var html = ' <a href="{{route("employee.edit", ":employee_id")}}" style="border: none;" class="p-2 focus:outline-none focus:shadow-outline-gray editar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>'+
-               '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '"><i class="fas fa-trash-alt"></i></button>';
+    var html = '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '">Restaurar <i class=" fas  fa-trash-can-arrow-up"></button>';
         html = html.replace(/:employee_id/g, row.id);
     return html;
         }
@@ -248,7 +235,6 @@
 	});
 
     $(document).on('click', '.eliminar', function () {
-        var button = $(this);
     Swal.fire({
         title: 'Eliminar Empleado',
         text: "¿Está seguro de eliminar este registro?",
@@ -259,18 +245,13 @@
         confirmButtonText: 'Sí'
     }).then((result) => {
         if (result.isConfirmed) {
-            var row = button.closest('tr');
             let id = $(this).attr('data-id');
-            deleteFila(id,row);
+            deleteFila(id);
         }
     })
 });
 
-
-
-
-
-function deleteFila(id,row) {
+function deleteFila(id) {
     $.ajax({
         url: '{{ route("employee.destroyed", ":id") }}'.replace(':id', id),
         type: 'DELETE',
@@ -279,7 +260,6 @@ function deleteFila(id,row) {
         },
         success: function (data) {
             console.log(data);
-            
             Swal.fire({
             icon: 'success',
             title: 'Se eliminó a ' + data.message + ' del registro',
@@ -287,7 +267,7 @@ function deleteFila(id,row) {
             timer: 1500,
             allowOutsideClick: false
             }).then(function () {
-                t.row(row).remove().draw(false);
+            window.location.href = '{{ route("employee.index") }}';
             });
         }
     }).fail(function () {

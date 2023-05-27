@@ -15,6 +15,8 @@ use Illuminate\Support\Str;
  */
 class ProductFactory extends Factory
 {
+
+    protected $maxRetries = 100000;
     /**
      * Define the model's default state.
      *
@@ -23,7 +25,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word,
+            'name' => $this->faker->unique()->name,
             'description' => $this->faker->realText(20),
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'presentation' => $this->faker->realText(20),

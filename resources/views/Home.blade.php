@@ -15,9 +15,9 @@
                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                 ></path>
             </svg>
-            <span>Bienvendo(a) NOMBRE DE USUARIO AQUI</span>
+            <span>Bienvendo(a) [NOMBRE DE USUARIO AQUI]</span>
         </div>
-        <span>Tienda Online &RightArrow;</span>
+        <span><button>Tienda Online  &RightArrow;</button></span>
     </a>
     <!-- Cards -->
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
@@ -94,12 +94,86 @@
             </div>
         </div>
     </div>
-
-    <!-- New Table -->
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Tareas de desarrollo
+    </h2>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-
+        
         <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
+            <table  id="task" class="w-full whitespace-no-wrap">
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3">Nombre tarea</th>
+                        <th class="px-4 py-3">Descripcion</th>
+                        <th class="px-4 py-3">Rama Git</th>
+                        <th class="px-4 py-3">Fecha inicio</th>
+                        <th class="px-4 py-3">Fecha maxima</th>
+                        <th class="px-4 py-3">Estado</th>
+
+                    </tr> 
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    @foreach($task as $value)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                    <p class="font-semibold"> {{$value->task_name}}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                    <p class="font-semibold"> {{$value->description}}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                    <p class="font-semibold"> {{$value->git_branch}}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                    <p class="font-semibold"> {{$value->start_date}}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                    <p class="font-semibold"> {{$value->deadline}}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-xs">
+                            @if ($value->status == 'Pendiente')
+                            <span class=" px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+                                {{ $value->status }}
+                            </span>
+                        @elseif ($value->status == 'Realizado')
+                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                {{ $value->status }}
+                            </span>
+                        @endif
+                        </td>
+                     
+                    </tr>
+                    @endforeach
+                  
+                    
+                  
+
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+           
+        </div>
+    </div>
+    <!-- New Table -->
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Pedidos
+    </h2>
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        
+        <div class="w-full overflow-x-auto">
+            <table id="pedidos"class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">Clientes y direccion</th>
@@ -107,14 +181,13 @@
                         <th class="px-4 py-3">Monto</th>
                         <th class="px-4 py-3">Estado</th>
                         <th class="px-4 py-3">Fecha</th>
-                        <th class="px-4 py-3">Opciones</th>
+                        {{-- <th class="px-4 py-3">Opciones</th> --}}
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                     <img
                                         class="object-cover w-full h-full rounded-full"
@@ -146,14 +219,12 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                        <td class="px-4 py-3 text-sm">
-                        </td>
+                       
                     </tr>
 
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                     <img
                                         class="object-cover w-full h-full rounded-full"
@@ -166,7 +237,7 @@
                                 <div>
                                     <p class="font-semibold">Jolina Angelie</p>
                                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Pendiente
+                                        Independencia Lt.A #228
                                     </p>
                                 </div>
                             </div>
@@ -185,8 +256,7 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                        <td class="px-4 py-3 text-sm">
-                        </td>
+                        
                     </tr>
 
                     <tr class="text-gray-700 dark:text-gray-400">
@@ -205,7 +275,7 @@
                                 <div>
                                     <p class="font-semibold">Sarah Curry</p>
                                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Designer
+                                        Incas y amautas #221
                                     </p>
                                 </div>
                             </div>
@@ -225,8 +295,7 @@
                             6/10/2020
                         </td>
                     
-                    <td class="px-4 py-3 text-sm">
-                        </td>
+                    
                     </tr>
 
                     <tr class="text-gray-700 dark:text-gray-400">
@@ -245,7 +314,7 @@
                                 <div>
                                     <p class="font-semibold">Wenzel Dashington</p>
                                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Actor
+                                        Union #928
                                     </p>
                                 </div>
                             </div>
@@ -264,8 +333,7 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                        <td class="px-4 py-3 text-sm">
-                        </td>
+                        
                     </tr>
                 </tbody>
             </table>
@@ -276,10 +344,10 @@
     </div>
 
     <!-- Charts -->
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Charts
-    </h2>
-    <div class="grid gap-6 mb-8 md:grid-cols-2">
+    {{-- <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Estadisticas
+    </h2> --}}
+    {{-- <div class="grid gap-6 mb-8 md:grid-cols-2">
         <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                 Revenue
@@ -318,6 +386,33 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
+    
 </div>
+<script>
+    $(document).ready(function() {
+  $('#task').DataTable({
+    paging: true, // Mostrar paginación
+    lengthChange: true, // Permitir cambiar el número de filas mostradas por página
+    searching: true, // Permitir búsqueda en la tabla
+    ordering: true, // Permitir ordenar las columnas
+    info: true, // Mostrar información sobre el número de filas y columnas
+    autoWidth: false, // Desactivar el ajuste automático del ancho de las columnas
+    responsive: true // Hacer la tabla responsive
+  });
+});
+$(document).ready(function() {
+  $('#pedidos').DataTable({
+    paging: true, // Mostrar paginación
+    lengthChange: true, // Permitir cambiar el número de filas mostradas por página
+    searching: true, // Permitir búsqueda en la tabla
+    ordering: true, // Permitir ordenar las columnas
+    info: true, // Mostrar información sobre el número de filas y columnas
+    autoWidth: false, // Desactivar el ajuste automático del ancho de las columnas
+    responsive: true // Hacer la tabla responsive
+  });
+});
+
+</script>
 @endsection

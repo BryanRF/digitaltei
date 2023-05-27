@@ -17,10 +17,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/date-1.3.0/fc-4.2.1/fh-3.3.1/kt-2.8.1/r-2.4.0/rg-1.3.0/rr-1.3.2/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css"/>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-        <script src="{{asset('/assets/js/charts-lines.js') }}" defer></script>
-        <script src="{{asset('/assets/js/charts-pie.js') }}" defer></script> 
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/> --}}
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script> --}}
+        {{-- <script src="{{asset('/assets/js/charts-lines.js') }}" defer></script> --}}
+        {{-- <script src="{{asset('/assets/js/charts-pie.js') }}" defer></script>  --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -336,7 +336,7 @@
                                                 class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                                 href="#"
                                             >
-                                                <span>Messages</span>
+                                                <span>Mensajes</span>
                                                 <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
                                                     13
                                                 </span>
@@ -347,7 +347,7 @@
                                                 class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                                 href="#"
                                             >
-                                                <span>Sales</span>
+                                                <span>Ventas</span>
                                                 <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
                                                     2
                                                 </span>
@@ -358,7 +358,7 @@
                                                 class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                                 href="#"
                                             >
-                                                <span>Alerts</span>
+                                                <span>Alertas</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -391,7 +391,7 @@
                                                 <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                                 </svg>
-                                                <span>Profile</span>
+                                                <span>Perfil</span>
                                             </a>
                                         </li>
                                         <li class="flex">
@@ -405,7 +405,7 @@
                                                     ></path>
                                                     <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 </svg>
-                                                <span>Settings</span>
+                                                <span>Ajustes</span>
                                             </a>
                                         </li>
                                         <li class="flex">
@@ -416,7 +416,7 @@
                                                 <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                                                 </svg>
-                                                <span>Log out</span>
+                                                <span>Cerrar Sesion</span>
                                             </a>
                                         </li>
                                     </ul>

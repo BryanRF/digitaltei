@@ -13,8 +13,10 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Type;
 use App\Models\Utility;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class DatatablesController extends Controller
 {
+    
     public function employee()
     {
         $data =  Employee::select('employees.*', 'jobs.name as job_name')
@@ -24,8 +26,24 @@ class DatatablesController extends Controller
             return $item;
         });
         return datatables()->collection($data)->toJson();
-        // return Datatables::of($data)->make(true);
+       
     }
+
+    public function employeeTrashed()
+    {
+        $data = Employee::withTrashed()->select('employees.*', 'jobs.name as job_name')
+            ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')
+            ->orderBy('id', 'desc')
+            ->whereNotNull('employees.deleted_at')
+            ->get()
+            ->map(function ($item) {
+                $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
+                return $item;
+            });
+    
+        return datatables()->of($data)->toJson();
+    }
+    
     public function product()
     {
         $data =   Product::select(

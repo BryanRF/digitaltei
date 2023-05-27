@@ -17,16 +17,18 @@ class EmployeeController extends Controller
     protected $empresa = "DIGITALTEI";
     public function index()
     {
-        
-        $employee = Employee::select('employees.*', 'jobs.name as job_name')
-        ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')->orderBy('id','desc')
-        ->get()->map(function ($item) {
-            $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
-            return $item;
-        });
         $titulo = "Gestion de empleados";
         $empresa = $this->empresa;
-        return view('employee.index',compact('employee','titulo','empresa'));
+        return view('employee.index',compact('titulo','empresa'));
+    }
+    public function restore()
+    {
+        $empleado = Employee::find($id);
+        $name = $empleado->name . ' '.$empleado->lastname;
+        $empleado->delete();
+    
+        // return response()->json(['message' => $id]);
+        return response()->json(['message' => $name]);
     }
   
     public function edit(Employee $employee)
@@ -44,6 +46,7 @@ class EmployeeController extends Controller
         $empresa = $this->empresa;
         return view('employee.create',compact('titulo','jobs','empresa','data'));
     }
+    
     public function store(StoreEmployee $request)
     {
         $success=null;
@@ -63,15 +66,14 @@ class EmployeeController extends Controller
         }
         if ($request->hasFile('file')) {
             $document = $request->file('file');
-            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$file->getClientOriginalExtension();
-            $ruta= storage_path().'\app\public\documents/'.$filename;
-            Storage::put($ruta, file_get_contents($document));
+            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$document->getClientOriginalExtension();
+            $ruta = storage_path('app/public/documents/'.$filename);
+            $document->move(storage_path('app/public/documents'), $filename);
             $data['file'] = 'documents/'.$filename;
-
         }
         if (Employee::create($data)) {
-            $success="Registrado correctamente";
-            return redirect()->route('employee.create')->with('success', $success);
+            $success="Empleado registrado.";
+            return redirect()->route('employee.index')->with('success', $success);
         } else {
             unlink($ruta);
             return redirect()->back()->with('error', 'No se pudo registrar el registro.');
@@ -105,27 +107,27 @@ class EmployeeController extends Controller
         
         
         if ($employee->update($data)) {
-            return redirect()->route('employee.index');
+            $success="Empleado actualizado.";
+            return redirect()->route('employee.index')->with('success', $success);
         } else {
             unlink($ruta);
             return redirect()->back()->with('error', 'No se pudo actualizar el registro.');
         }
     }
-    
 
-    // public function destroy(Employee $employee)
-    // {
-    //     $employee->delete();
-    //     return redirect()->route('employee.index');
-    // }
     public function destroy($id)
     {
         $empleado = Employee::find($id);
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->delete();
-    
         // return response()->json(['message' => $id]);
         return response()->json(['message' => $name]);
+
+    }
+    public function show($id)
+    {
+        $empleado = Employee::find($id);
+ 
 
     }
 }
