@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\SubCategory;
 class CategoryController extends Controller
 {
     /**
@@ -16,7 +17,19 @@ class CategoryController extends Controller
      
     public function index()
     {
-        $data = Category::all();
+        $categories = Category::all();
+
+        $data = [];
+    
+        foreach ($categories as $category) {
+            $subcategories = SubCategory::where('category_id', $category->id)->get();
+    
+            $data[] = [
+                'category' => $category,
+                'subcategories' => $subcategories,
+            ];
+        }
+    
         return response()->json($data);
     }
 
