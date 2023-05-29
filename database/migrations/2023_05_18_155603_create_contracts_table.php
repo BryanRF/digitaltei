@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('file')->nullable();
-            $table->string('position');
+            $table->string('description');
             $table->decimal('salary', 8, 2);
             $table->timestamps();
             $table->softDeletes();

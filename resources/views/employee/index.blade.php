@@ -5,6 +5,7 @@
     <div class="grid grid-cols-6">
         <h2 class="col-span-6 md:col-span-3 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{$titulo}}
+            <br>
             <a href="{{route('employee.create')}}"
                 class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Nuevo
@@ -34,8 +35,10 @@
                         <th class="px-4 py-3">DNI</th>
                         <th class="px-4 py-3">Correo</th>
                         <th class="px-4 py-3">Numero</th>
-                        <th class="px-4 py-3">F.Nacimiento</th>
                         <th class="px-4 py-3 no-export">Documento</th>
+                        <th class="px-4 py-3 no-export">Contratos</th>
+                        <th class="px-4 py-3">Edad</th>
+                        <th class="px-4 py-3">F.Nacimiento</th>
                         <th class="px-4 py-3 text-center no-export">Opciones</th>
                     </tr>
                 </thead>
@@ -90,26 +93,25 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-xs">'+
-                           ' <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
+                           ' <button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
                         '</td>';
             },
         },
     
-        { data: 'birthday_date', name: 'birthday_date' },
         { 
             render: function (data, type, row, meta) {
                 html ="";
@@ -124,7 +126,7 @@
                                '</a>';
                     }
                 } else {
-                    html= '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
+                    html= '<button disabled class="text-xs text-black font-bold bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
                            '<i class="fas fa-download"></i> Sin registro' +
                            '</button>';
                 }
@@ -134,6 +136,18 @@
             name: 'file',
             className: 'px-4 py-3 no-export'
         },
+        { 
+            render: function (data, type, row, meta) {
+                html = '<a href="{{route("employee.contract.show", ":employee_id")}}" class="text-xs text-black font-bold bg-gray-300 hover:bg-gray-600 hover:text-white p-2 text-center rounded" >' +
+                           'Ver contratos' +
+                           '</a>';
+                html = html.replace(/:employee_id/g, row.id);
+                return html;          
+            },
+        },
+        { data: 'age', name: 'age' },
+        { data: 'birthday_date', name: 'birthday_date' },
+
         {
             render: function (data, type, row, meta) {
         var employeeId = row.id;

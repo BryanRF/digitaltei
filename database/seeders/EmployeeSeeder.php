@@ -32,6 +32,6 @@ class EmployeeSeeder extends Seeder
         $employee->jobs_id=1;
         $employee->isUser=1;
         $employee->save();
-        Employee::factory(2000)->create();
+        Employee::factory(100)->create();
     }
 }

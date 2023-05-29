@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\RecycleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DataTablesController;
@@ -27,3 +28,10 @@ Route::put('empleados/restaurar/{id}', [EmployeeController::class, 'restored'])-
 //! Api datatable
 Route::get('datatable/employee', [DataTablesController::class, 'employee'])->name('datatable.employee');
 Route::get('datatable/employee/trashed', [DataTablesController::class, 'employeeTrashed'])->name('datatable.employee.trashed');
+//!-----------------------------------------------------------------------------------------------------------------------------------
+//! Contratos
+Route::resource('contratos',ContractController::class)->parameters(['contratos'=>'contract'])->names('contract');
+Route::get('empleados/contratos/{id}', [ContractController::class, 'show'])->name('employee.contract.show');
+//! Api datatable
+Route::get('datatable/empleados/contratos/{id}', [DataTablesController::class, 'contractById'])->name('datatable.contract.employee');
+Route::get('datatable/contratos', [DataTablesController::class, 'contract'])->name('datatable.contract');

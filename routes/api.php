@@ -16,6 +16,12 @@ Route::resource('productos',ProductController::class)->names('products');
 Route::resource('categorias',CategoryController::class)->names('categories');
 Route::resource('subcategorias',SubCategoryController::class)->names('sub_categories');
 
+// Ruta para mostrar productos por categoría
+Route::get('products/category/{id}', [ProductController::class, 'showbycategory'])->name('products.category');
+
+// Ruta para mostrar productos por subcategoría
+Route::get('products/subcategory/{id}', [ProductController::class, 'showbysubcategory'])->name('products.subcategory');
+
 // Route::group(['middleware' => 'auth:api'], function () {
 //     // Rutas protegidas que requieren autenticación
 //     Route::resource('empleados', EmployeeController::class)->names('employee');

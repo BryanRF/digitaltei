@@ -52,39 +52,39 @@ class User extends Authenticatable
             set:fn($value) => strtolower($value)
         );
     }
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($user) {
-            AuditLog::create([
-                'model' => 'User',
-                'model_id' => $user->id,
-                'action' => 'create',
-                'new_values' => $user->toJson(),
-                'user_id' => auth()->id(),
-            ]);
-        });
+    //     static::creating(function ($user) {
+    //         AuditLog::create([
+    //             'model' => 'User',
+    //             'model_id' => $user->id,
+    //             'action' => 'create',
+    //             'new_values' => $user->toJson(),
+    //             'user_id' => auth()->id(),
+    //         ]);
+    //     });
 
-        static::updating(function ($user) {
-            AuditLog::create([
-                'model' => 'User',
-                'model_id' => $user->id,
-                'action' => 'update',
-                'old_values' => $user->getOriginal(),
-                'new_values' => $user->toJson(),
-                'user_id' => auth()->id(),
-            ]);
-        });
+    //     static::updating(function ($user) {
+    //         AuditLog::create([
+    //             'model' => 'User',
+    //             'model_id' => $user->id,
+    //             'action' => 'update',
+    //             'old_values' => $user->getOriginal(),
+    //             'new_values' => $user->toJson(),
+    //             'user_id' => auth()->id(),
+    //         ]);
+    //     });
 
-        static::deleting(function ($user) {
-            AuditLog::create([
-                'model' => 'User',
-                'model_id' => $user->id,
-                'action' => 'delete',
-                'old_values' => $user->toJson(),
-                'user_id' => auth()->id(),
-            ]);
-        });
-    }
+    //     static::deleting(function ($user) {
+    //         AuditLog::create([
+    //             'model' => 'User',
+    //             'model_id' => $user->id,
+    //             'action' => 'delete',
+    //             'old_values' => $user->toJson(),
+    //             'user_id' => auth()->id(),
+    //         ]);
+    //     });
+    // }
 }
