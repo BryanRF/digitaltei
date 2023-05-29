@@ -10,7 +10,7 @@
                 Nuevo
                 
             </a>
-            <a href="{{route('recycle.index')}}"
+            <a href="{{route('recycle.employee.index')}}"
                 class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Papelera <i class=" fas  fa-trash-can-arrow-up"></i>
                 
@@ -71,7 +71,6 @@
                             '<div class="flex items-center text-sm">'+
                                 '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
                                     '<img class="object-cover w-full h-full rounded-full" src="{{ Storage::url(":avatar") }}"/>'+
-                                    // '<img class="object-cover w-full h-full rounded-full" src="storage/'+ row.avatar+'"/>'+
                                     '<div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>'+
                                 '</div>'+
                                 '<div>'+
@@ -113,21 +112,24 @@
         { data: 'birthday_date', name: 'birthday_date' },
         { 
             render: function (data, type, row, meta) {
+                html ="";
                 if (row.file != null) {
                     if (row.file.indexOf('.pdf') !== -1) {
-                        return '<a href="storage/'+ row.file+'" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> PDF' +
                                '</a>';
                     } else if (row.file.indexOf('.doc') !== -1) {
-                        return '<a href="storage/'+ row.file+'" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> Word' +
                                '</a>';
                     }
                 } else {
-                    return '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
+                    html= '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
                            '<i class="fas fa-download"></i> Sin registro' +
                            '</button>';
                 }
+                html = html.replace(/:archivefile/g, row.file);
+                return html;
             },
             name: 'file',
             className: 'px-4 py-3 no-export'

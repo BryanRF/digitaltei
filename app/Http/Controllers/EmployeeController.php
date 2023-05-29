@@ -21,15 +21,7 @@ class EmployeeController extends Controller
         $empresa = $this->empresa;
         return view('employee.index',compact('titulo','empresa'));
     }
-    public function restore()
-    {
-        $empleado = Employee::find($id);
-        $name = $empleado->name . ' '.$empleado->lastname;
-        $empleado->delete();
-    
-        // return response()->json(['message' => $id]);
-        return response()->json(['message' => $name]);
-    }
+  
   
     public function edit(Employee $employee)
     {
@@ -115,12 +107,21 @@ class EmployeeController extends Controller
         }
     }
 
+    public function restored($id)
+    {
+        $empleado = Employee::withTrashed()->find($id); // find the soft deleted user by id
+        $name = $empleado->name . ' '.$empleado->lastname;
+        $empleado->update(['deleted_at' => null]); // restore the user
+        // $empleado->restore();
+        
+        return response()->json(['message' => $name]);
+    }
+
     public function destroy($id)
     {
         $empleado = Employee::find($id);
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->delete();
-        // return response()->json(['message' => $id]);
         return response()->json(['message' => $name]);
 
     }

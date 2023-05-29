@@ -49,15 +49,16 @@
 
  $.fn.dataTable.ext.errMode = 'none';
  
-    $('table.display').DataTable({
+    t=$('table.display').DataTable({
         ajax:"{{route('datatable.employee.trashed')}}",
         columns: [
         { 
             render: function (data, type, row, meta) {
-                return '<div class="px-3 py-3 ">'+
+
+                html= '<div class="px-3 py-3 ">'+
                             '<div class="flex items-center text-sm">'+
                                 '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
-                                    '<img class="object-cover w-full h-full rounded-full" src="storage/'+ row.avatar+'"/>'+
+                                    '<img class="object-cover w-full h-full rounded-full" src="{{ Storage::url(":avatar") }}"/>'+
                                     '<div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>'+
                                 '</div>'+
                                 '<div>'+
@@ -65,6 +66,10 @@
                                 '</div>'+
                            ' </div>'+
                         '</div>';
+
+            html = html.replace(/:avatar/g, row.avatar);
+            return html;
+      
             },
         },
         {
@@ -95,21 +100,24 @@
         { data: 'birthday_date', name: 'birthday_date' },
         { 
             render: function (data, type, row, meta) {
+                html ="";
                 if (row.file != null) {
                     if (row.file.indexOf('.pdf') !== -1) {
-                        return '<a href="storage/'+ row.file+'" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> PDF' +
                                '</a>';
                     } else if (row.file.indexOf('.doc') !== -1) {
-                        return '<a href="storage/'+ row.file+'" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> Word' +
                                '</a>';
                     }
                 } else {
-                    return '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
+                    html= '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
                            '<i class="fas fa-download"></i> Sin registro' +
                            '</button>';
                 }
+                html = html.replace(/:archivefile/g, row.file);
+                return html;
             },
             name: 'file',
             className: 'px-4 py-3 no-export'
@@ -233,11 +241,11 @@
       $(row).css('background-color', 'transparent');
     }
 	});
-
     $(document).on('click', '.eliminar', function () {
+        var button = $(this);
     Swal.fire({
-        title: 'Eliminar Empleado',
-        text: "¿Está seguro de eliminar este registro?",
+        title: 'Restaurar Empleado',
+        text: "¿Está seguro de restaurar este registro?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -245,41 +253,45 @@
         confirmButtonText: 'Sí'
     }).then((result) => {
         if (result.isConfirmed) {
+            var row = button.closest('tr');
             let id = $(this).attr('data-id');
-            deleteFila(id);
+            deleteFila(id,row);
         }
     })
 });
 
-function deleteFila(id) {
+
+
+
+function deleteFila(id,row) {
     $.ajax({
-        url: '{{ route("employee.destroyed", ":id") }}'.replace(':id', id),
-        type: 'DELETE',
+        url: '{{ route("employee.restored", ":id") }}'.replace(':id', id),
+        type: 'PUT',
         data: {
             '_token': '{{ csrf_token() }}'
         },
         success: function (data) {
             console.log(data);
+            
             Swal.fire({
             icon: 'success',
-            title: 'Se eliminó a ' + data.message + ' del registro',
+            title: 'Se restauró a ' + data.message + ' del registro',
             showConfirmButton: false,
             timer: 1500,
             allowOutsideClick: false
             }).then(function () {
-            window.location.href = '{{ route("employee.index") }}';
+                t.row(row).remove().draw(false);
             });
         }
     }).fail(function () {
         Swal.fire({
             icon: 'error',
-            title: 'Error al eliminar el registro',
+            title: 'Error al restaurar el registro',
             showConfirmButton: false,
             timer: 1500
         });
     });
 }
-
 
     function copyText(text) {
       const input = document.createElement('input');
