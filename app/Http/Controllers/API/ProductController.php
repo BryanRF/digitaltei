@@ -35,7 +35,6 @@ class ProductController extends Controller
         ->join('brands', 'products.brand_id', '=', 'brands.id')
         ->join('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
         ->join('types', 'products.type_id', '=', 'types.id')
-        // ->where('products.status', true)
         ->orderBy('products.id', 'DESC')
         ->get();
         return response()->json($data);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Product;
 class SubcategoryController extends Controller
 {
     /**
@@ -15,7 +16,37 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $data = SubCategory::all();
+        
+
+        $subcategories = SubCategory::all();
+        $data = [];
+        foreach ($subcategories as $subcategory) {
+            // $products = Product::where('subcategory_id', $subcategory->id)->get();
+            $products = Product::select(
+                'products.id',
+                'products.name',
+                'products.description',
+                'products.price',
+                'products.presentation',
+                'products.status',
+                'products.slug',
+                'products.image',
+                // 'products.utility',
+                'brands.name as brand_name',
+                'sub_categories.name as subcategory_name',
+                'types.name as type_name'
+            )
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
+            ->join('types', 'products.type_id', '=', 'types.id')
+            ->where('subcategory_id', $subcategory->id)
+            ->orderBy('products.id', 'DESC')
+            ->get();
+            $data[] = [
+                'subcategory' => $subcategory,
+                'products' => $products,
+            ];
+        }
         return response()->json($data);
     }
 

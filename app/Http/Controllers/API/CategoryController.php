@@ -18,9 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-
         $data = [];
-    
         foreach ($categories as $category) {
             $subcategories = SubCategory::where('category_id', $category->id)->get();
     
@@ -29,7 +27,6 @@ class CategoryController extends Controller
                 'subcategories' => $subcategories,
             ];
         }
-    
         return response()->json($data);
     }
 
