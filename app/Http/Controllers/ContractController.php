@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateEmployee;
 use App\Models\Employee;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -22,6 +23,7 @@ class ContractController extends Controller
     protected $empresa = "DIGITALTEI";
     public function index()
     {
+        $this->LoginStatus();
         $titulo = "Gestion de contratos";
         $empresa = $this->empresa;
         return view('contract.index',compact('titulo','empresa'));
@@ -34,7 +36,13 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        $this->LoginStatus();
+        $jobs = Job::all();
+        $employee = Employee::all();
+        // $data[]=null;
+        $titulo = "Nuevo contrato";
+        $empresa = $this->empresa;
+        return view('contract.create',compact('titulo','jobs','empresa','employee'));
     }
 
     /**
@@ -45,7 +53,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->LoginStatus();
     }
 
     /**
@@ -56,12 +64,15 @@ class ContractController extends Controller
      */
     public function show($id)
     {
+        $this->LoginStatus();
+        
         $employee = Employee::findOrFail($id);
         $nombre = $employee->name. ' '.$employee->lastname;
         $titulo = "Contratos de ".$nombre;
         $empresa = $this->empresa;
         return view('contract.show',compact('titulo','empresa','employee'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -96,4 +107,5 @@ class ContractController extends Controller
     {
         //
     }
+   
 }

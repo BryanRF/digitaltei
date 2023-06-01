@@ -16,22 +16,22 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        //!empleados pre registrados
-        $employee = new Employee;
-        $employee->name="Brayan Eduardo";
-        $employee->lastname="Rojas Freyre";
-        $employee->document="74473887";
-        $txt= "Rojas Freyre 74473887";
-        $employee->slug=Str::slug($txt,'-');
-        $employee->email="rfreyrebrayaned@gmail.com";
-        $employee->address="Peru, Lambayeque";
-        $employee->phone="+51998511769";
-        $employee->avatar = 'images/0twcwAJ0gXptdkaUWyGq.png';
-        $employee->birthday_date ="1999-12-26";
-        $employee->gender ="Masculino";
-        $employee->jobs_id=1;
-        $employee->isUser=1;
-        $employee->save();
+  
+        Employee::create(['name' => 'Brayan Eduardo',
+        'lastname' => 'Rojas Freyre',
+        'document' => '74473887',
+        'slug' => Str::slug("Rojas Freyre 74473887",'-'),
+        'email' => 'rfreyrebrayaned@gmail.com',
+        'address' => 'Peru, Lambayeque',
+        'phone' => '+51998511769',
+        'avatar' => 'images/0twcwAJ0gXptdkaUWyGq.png',
+        'birthday_date' => '1999-12-26',
+        'gender' => 'Masculino',
+        'jobs_id' => 1,
+        'isUser' => 1
+    
+    ]);
+
         Employee::factory(100)->create();
     }
 }

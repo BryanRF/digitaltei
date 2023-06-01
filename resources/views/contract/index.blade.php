@@ -6,11 +6,11 @@
         <h2 class="col-span-6 md:col-span-3 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{$titulo}}
             <br>
-            {{-- <a href="{{route('contract.create')}}"
+            <a href="{{route('contract.create')}}"
                 class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Nuevo Contrato
                 
-            </a> --}}
+            </a>
             {{-- <a href="{{route('recycle.contract.index')}}"
                 class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Papelera
@@ -254,7 +254,7 @@
 
 function deleteFila(id,row) {
     $.ajax({
-        url: '{{ route("employee.destroyed", ":id") }}'.replace(':id', id),
+        url: '{{ route("employee.dni", ":id") }}'.replace(':id', id),
         type: 'DELETE',
         data: {
             '_token': '{{ csrf_token() }}'

@@ -15,10 +15,11 @@ class AccessSeeder extends Seeder
      */
     public function run()
     {
-            //? accessos y permisos de empleado id=1
+            // //? accessos y permisos de empleado id=1
             $accesses = new Access;
             $accesses->users_id = 1;
             $accesses->access_details_id = 1;
             $accesses->save();
     }
+
 }

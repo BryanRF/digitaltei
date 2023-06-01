@@ -7,18 +7,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Digitaltei | {{$titulo}}</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-        <link href="https://fonts.googleapis.com/css2?family=Atma:wght@600&family=Montserrat:ital,wght@0,800;1,800&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Atma:wght@600&family=Montserrat:ital,wght@0,800;1,800&display=swap" rel="stylesheet"/>
         <link rel="stylesheet" href="{{ asset('assets/css/fontawesome-free-6.3.0-web/css/all.css') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/date-1.3.0/fc-4.2.1/fh-3.3.1/kt-2.8.1/r-2.4.0/rg-1.3.0/rr-1.3.2/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css"/>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
-        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/> --}}
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script> --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
         {{-- <script src="{{asset('/assets/js/charts-lines.js') }}" defer></script> --}}
         {{-- <script src="{{asset('/assets/js/charts-pie.js') }}" defer></script>  --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -37,13 +35,14 @@
         
 
     </head>
+    
     <body>
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
             <!-- Desktop sidebar -->
             <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
                 <div class="py-4 text-gray-500 dark:text-gray-400">
                     <div class="flex">
-                        <img style="" src="{{asset('/assets/img/logo.png') }}" class="h-7 ml-6" alt="Logo de la farmacia">
+                        <img style="" src="{{asset('/assets/img/logo.png') }}" class="h-7 ml-6" alt="Logo">
                         <h1 class="ml-1 text-lg  font-bold text-gray-800 dark:text-gray-200" href="#">
                           {{$empresa}}
                         </h1>
@@ -141,10 +140,10 @@
                        
                     </ul>
                     <div class="px-6 my-6">
-                        <button
+                        <a href="{{route('logout')}}"
                             class="flex  items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                             Cerrar sesion <i class=" ml-2 fa-solid fa-power-off"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
         </aside>
@@ -257,12 +256,11 @@
                     </ul>
                  
                     <div class="px-6 my-6">
-                        <button
-                            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber"
-                        >
-                            Cerrar Sesion
-                            <span class="ml-2" aria-hidden="true">+</span>
-                        </button>
+                        <a href="{{route('logout')}}"
+                            class="flex  items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                            Cerrar sesion <i class=" ml-2 fa-solid fa-power-off"></i>
+                            <span class="ml-2" aria-hidden="true"></span>
+                        </a>
                     </div>
                 </div>
             </aside>

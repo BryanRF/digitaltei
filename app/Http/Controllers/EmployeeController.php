@@ -17,6 +17,7 @@ class EmployeeController extends Controller
     protected $empresa = "DIGITALTEI";
     public function index()
     {
+        $this->LoginStatus();
         $titulo = "Gestion de empleados";
         $empresa = $this->empresa;
         return view('employee.index',compact('titulo','empresa'));
@@ -25,6 +26,7 @@ class EmployeeController extends Controller
   
     public function edit(Employee $employee)
     {
+        $this->LoginStatus();
         $jobs = Job::all();
         $titulo = "Editar empleado";
         $empresa = $this->empresa;
@@ -32,15 +34,29 @@ class EmployeeController extends Controller
     }
     public function create()
     {
+        $this->LoginStatus();
         $jobs = Job::all();
         $data[]=null;
         $titulo = "Nuevo empleado";
         $empresa = $this->empresa;
         return view('employee.create',compact('titulo','jobs','empresa','data'));
     }
-    
+    public function showbydni($dni)
+    {
+        $this->LoginStatus();
+       
+        try {
+            $employee = Employee::where('document', $dni)->firstOrFail();
+            // Hacer algo con el empleado encontrado
+            return response()->json($employee);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Manejar el caso cuando no se encuentra un empleado con el DNI proporcionado
+            return response()->json(['error' => 'Empleado no encontrado']);
+        }
+    }
     public function store(StoreEmployee $request)
     {
+        $this->LoginStatus();
         $success=null;
         $data = $request->all();
         if ($request->hasFile('avatar')) {
@@ -73,6 +89,7 @@ class EmployeeController extends Controller
     }
     public function update(UpdateEmployee $request, Employee $employee)
     {
+        $this->LoginStatus();
         $data = $request->all();
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
@@ -109,6 +126,7 @@ class EmployeeController extends Controller
 
     public function restored($id)
     {
+        $this->LoginStatus();
         $empleado = Employee::withTrashed()->find($id); // find the soft deleted user by id
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->update(['deleted_at' => null]); // restore the user
@@ -119,6 +137,7 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
+        $this->LoginStatus();
         $empleado = Employee::find($id);
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->delete();
@@ -127,6 +146,7 @@ class EmployeeController extends Controller
     }
     public function show($id)
     {
+        $this->LoginStatus();
         $empleado = Employee::find($id);
  
 

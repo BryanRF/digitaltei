@@ -16,8 +16,13 @@ class TypeFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => $this->faker->unique()->word,
+        $palabras = ['computadoras', 'mouse', 'monitor', 'impresora', 'case', 'teclado', 'auriculares', 'altavoces', 'tablet', 'disco duro', 'proyector', 'cámara', 'smartphone', 'router', 'tarjeta gráfica', 'memoria RAM', 'escáner', 'laptop', 'servidor', 'ratón', 'fuente de poder', 'dispositivo de almacenamiento'];
+    
+        static $index = 0;
+        $producto = $palabras[$index % count($palabras)];
+        $index++;
+            return [
+                'name' => $producto,
 
        ];
     }

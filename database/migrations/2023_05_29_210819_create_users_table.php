@@ -22,13 +22,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->unsignedInteger('user_types_id')->notNull();
-            $table->unsignedInteger('employees_id')->notNull();
+            $table->unsignedInteger('employees_id')->nullable();
+            $table->unsignedInteger('customers_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
             $table->foreign('user_types_id')->references('id')->on('user_types');
             $table->foreign('employees_id')->references('id')->on('employees');
-
+            $table->foreign('customers_id')->references('id')->on('customers');
         });
     }
 

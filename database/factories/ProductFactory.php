@@ -24,17 +24,18 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $palabras = ['computadoras', 'mouse', 'monitor', 'impresora', 'case', 'teclado', 'auriculares', 'altavoces', 'impresora', 'tablet', 'disco duro', 'proyector', 'cámara', 'smartphone', 'router', 'tarjeta gráfica', 'memoria RAM', 'impresora', 'escáner', 'laptop', 'servidor', 'monitor', 'impresora', 'case', 'ratón', 'fuente de poder', 'monitor', 'impresora', 'case', 'dispositivo de almacenamiento'];
+        $producto = $palabras[array_rand($palabras)];
+        
         return [
-            'name' => $this->faker->unique()->name,
+            'name' => $producto . ' ' . $this->faker->unique()->word,
             'description' => $this->faker->realText(20),
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'presentation' => $this->faker->realText(20),
             'status' => $this->faker->boolean,
             'image' => 'images/default_product.png',
             'slug' => Str::slug($this->faker->unique()->name,'-'),
-            //'utility' => $this->faker->words(3, true),
             'brand_id' => Brand::inRandomOrder()->first()->id,
-            // 'category_id' => Category::inRandomOrder()->first()->id,
             'subcategory_id' => Subcategory::inRandomOrder()->first()->id,
             'type_id' => Type::inRandomOrder()->first()->id
         ];

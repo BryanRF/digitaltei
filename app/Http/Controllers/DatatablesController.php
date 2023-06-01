@@ -21,7 +21,7 @@ class DatatablesController extends Controller
     public function employee()
     {
         $data = Employee::select('employees.*')
-        ->selectRaw('TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()) AS age')
+        ->selectRaw('CONCAT (TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()), " años") AS age')
         ->selectRaw('jobs.name as job_name')
         ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')
         ->orderBy('id', 'desc')
@@ -30,26 +30,22 @@ class DatatablesController extends Controller
             $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
             return $item;
         });
-    
-
         return datatables()->collection($data)->toJson();
        
     }
-
     public function employeeTrashed()
     {
         $data = Employee::select('employees.*')
-        ->selectRaw('TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()) AS age')
+        ->selectRaw('CONCAT (TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()), " años") AS age')
         ->selectRaw('jobs.name as job_name')
         ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')
         ->orderBy('id', 'desc')
-            ->whereNotNull('employees.deleted_at')
+            ->whereNotNull('employees.deleted_at')->withTrashed() 
             ->get()
             ->map(function ($item) {
                 $item->birthday_date = \Carbon\Carbon::parse($item->birthday_date)->format('d/m/Y');
                 return $item;
             });
-    
         return datatables()->of($data)->toJson();
     }
     public function contract(){

@@ -15,14 +15,9 @@ class User_typeSeeder extends Seeder
      */
     public function run()
     {
-        $user_type1 = new User_type;
-        $user_type1->name = 'Admin';
-        $user_type1->save();
-        $user_type2 = new User_type;
-        $user_type2->name = 'Cajero';
-        $user_type2->save();
-        $user_type3 = new User_type;
-        $user_type3->name = 'Almacen';
-        $user_type3->save();
+        User_type::create(['name' => 'Admin']);
+        User_type::create(['name' => 'Cajero']);
+        User_type::create(['name' => 'Almacen']);
+        User_type::create(['name' => 'Cliente']);
     }
 }

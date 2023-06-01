@@ -1,7 +1,7 @@
 @extends('layouts.base') @prepend('styles') @section('content') 
 <div class="container px-6 mx-auto grid">
     <div class="grid grid-cols-6">
-      <h2 class="my-6  font-semibold text-gray-700 dark:text-gray-200">
+      <h2 class="col-span-6 md:col-span-3 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         {{$titulo}}
       </h2>
     </div>
@@ -204,14 +204,19 @@
         type="submit">
             Registrar
         </button>
-        <a  href="{{(route('employee.index'))}}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button  type="button" id="back" class="back bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             regresar
-        </a>
+        </button>
     </div>
 </div>
 </form>
     </div>
   </div>
-  
+  <script>
+const backButton = document.getElementById('back'); // Obtiene el botón por su ID
+backButton.addEventListener('click', function() {
+  window.location.href = "{{ route('employee.index') }}"; // Realiza la acción al hacer clic en el botón
+});
+  </script>
 
   @endsection

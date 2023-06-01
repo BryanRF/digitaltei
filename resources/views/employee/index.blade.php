@@ -271,27 +271,70 @@
 
     $(document).on('click', '.eliminar', function () {
         var button = $(this);
+    // Swal.fire({
+    //     title: 'Eliminar Empleado',
+    //     text: "¿Está seguro de eliminar este registro?",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Sí'
+    // }).then((result) => {
+    //     if (result.isConfirmed) {
+    //         var row = button.closest('tr');
+    //         let id = $(this).attr('data-id');
+    //         deleteFila(id,row);
+    //     }
+    // })
     Swal.fire({
-        title: 'Eliminar Empleado',
-        text: "¿Está seguro de eliminar este registro?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            var row = button.closest('tr');
-            let id = $(this).attr('data-id');
-            deleteFila(id,row);
-        }
-    })
+    title: 'Eliminar Empleado',
+    text: "¿Está seguro de eliminar este registro?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí'
+}).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire({
+    title: 'Ingrese su contraseña',
+    input: 'password',
+    inputAttributes: {
+        autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Confirmar',
+    showLoaderOnConfirm: true,
+    preConfirm: (password) => {
+        return new Promise((resolve, reject) => {
+            // Comparar la contraseña ingresada con la contraseña almacenada en la sesión
+            if (password === '{{ session("password") }}') {
+                // Contraseña válida, continuar con la eliminación del empleado
+                resolve();
+            } else {
+                // Contraseña no válida, mostrar mensaje de error
+                reject('Contraseña incorrecta');
+            }
+        });
+    }
+})
+.then(() => {
+    // La contraseña es válida, proceder con la eliminación del empleado
+    var row = button.closest('tr');
+    let id = $(this).attr('data-id');
+    deleteFila(id, row);
+})
+.catch((error) => {
+    // Mostrar mensaje de error en caso de contraseña incorrecta
+    Swal.showValidationMessage(
+        error
+    );
+});
+    }
 });
 
-
-
-
-
+  
+});
 function deleteFila(id,row) {
     $.ajax({
         url: '{{ route("employee.destroyed", ":id") }}'.replace(':id', id),
@@ -300,8 +343,6 @@ function deleteFila(id,row) {
             '_token': '{{ csrf_token() }}'
         },
         success: function (data) {
-            console.log(data);
-            
             Swal.fire({
             icon: 'success',
             title: 'Se eliminó a ' + data.message + ' del registro',
@@ -321,8 +362,6 @@ function deleteFila(id,row) {
         });
     });
 }
-
-
     function copyText(text) {
       const input = document.createElement('input');
       input.setAttribute('value', text);
@@ -341,42 +380,42 @@ function deleteFila(id,row) {
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
  })
-
     Toast.fire({
     icon: 'success',
     title: 'Copiado correctamente'
     })
-    
         }
-        
         $('button.dt-button').removeClass('dt-button');
-
-
 
 </script>
 
-                    @if(session('success') != null)
-                    <script>
-                          const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: false,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                   })
+@if(session('success') != null)
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
-Swal.fire({
-  position: 'top-end',
-  icon: 'success',
-  text: '{{ session("success") }}',
-  showConfirmButton: false,
-  timer: 1500
-})
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: '{{ session("success") }}',
+        showConfirmButton: false,
+        timer: 1500
+    })
 
-                    </script>
-                  @endif
+    // Eliminar la sesión 'success' después de mostrar el mensaje
+    @php
+        session()->forget('success');
+    @endphp
+</script>
+@endif
+
 @endsection
