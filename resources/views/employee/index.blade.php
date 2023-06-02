@@ -269,69 +269,56 @@
     }
 	});
 
+
+
     $(document).on('click', '.eliminar', function () {
         var button = $(this);
-    // Swal.fire({
-    //     title: 'Eliminar Empleado',
-    //     text: "¿Está seguro de eliminar este registro?",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Sí'
-    // }).then((result) => {
-    //     if (result.isConfirmed) {
-    //         var row = button.closest('tr');
-    //         let id = $(this).attr('data-id');
-    //         deleteFila(id,row);
-    //     }
-    // })
-    Swal.fire({
-    title: 'Eliminar Empleado',
-    text: "¿Está seguro de eliminar este registro?",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí'
+
+Swal.fire({
+  title: 'Eliminar Empleado',
+  text: '¿Está seguro de eliminar este registro?',
+  icon: 'warning',
+  input: 'password',
+  inputPlaceholder: 'Ingrese su contraseña',
+  showCancelButton: true,
+  confirmButtonColor: '#ffc107', // Color amarillo
+  cancelButtonColor: '#dc3545', // Color rojo
+  confirmButtonText: 'Sí',
+  cancelButtonText: 'Cancelar',
+  preConfirm: (password) => {
+    if (!password) {
+      Swal.showValidationMessage('Debe ingresar su contraseña');
+    }
+    return password;
+  },
 }).then((result) => {
-    if (result.isConfirmed) {
-        Swal.fire({
-    title: 'Ingrese su contraseña',
-    input: 'password',
-    inputAttributes: {
-        autocapitalize: 'off'
-    },
-    showCancelButton: true,
-    confirmButtonText: 'Confirmar',
-    showLoaderOnConfirm: true,
-    preConfirm: (password) => {
-        return new Promise((resolve, reject) => {
-            // Comparar la contraseña ingresada con la contraseña almacenada en la sesión
-            if (password === '{{ session("password") }}') {
-                // Contraseña válida, continuar con la eliminación del empleado
-                resolve();
-            } else {
-                // Contraseña no válida, mostrar mensaje de error
-                reject('Contraseña incorrecta');
-            }
-        });
-    }
-})
-.then(() => {
-    // La contraseña es válida, proceder con la eliminación del empleado
-    var row = button.closest('tr');
+  if (result.isConfirmed) {
+    let password = result.value;
     let id = $(this).attr('data-id');
-    deleteFila(id, row);
-})
-.catch((error) => {
-    // Mostrar mensaje de error en caso de contraseña incorrecta
-    Swal.showValidationMessage(
-        error
-    );
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $.get('{{ route("user.checkPassword", ":password") }}'.replace(':password', password), { _token: csrfToken })
+  .done(function(response) {
+        if (response.valid) {
+          var row = button.closest('tr');
+          deleteFila(id, row);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Contraseña incorrecta',
+            text: 'La contraseña proporcionada es incorrecta.',
+          });
+        }
+      })
+      .fail(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al verificar la contraseña.',
+        });
+      });
+  }
 });
-    }
-});
+
 
   
 });

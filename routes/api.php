@@ -10,11 +10,20 @@ use App\Http\Controllers\API\SubCategoryController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+    
 });
-Route::resource('empleados',EmployeeController::class)->names('employee');
+
+// Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('empleados',EmployeeController::class)->names('employee');
 Route::resource('productos',ProductController::class)->names('products');
 Route::resource('categorias',CategoryController::class)->names('categories');
 Route::resource('subcategorias',SubCategoryController::class)->names('sub_categories');
+// });
+
+// Route::resource('empleados',EmployeeController::class)->names('employee');
+// Route::resource('productos',ProductController::class)->names('products');
+// Route::resource('categorias',CategoryController::class)->names('categories');
+// Route::resource('subcategorias',SubCategoryController::class)->names('sub_categories');
 
 // Ruta para mostrar productos por categoría
 Route::get('products/category/{id}', [ProductController::class, 'showbycategory'])->name('products.category');

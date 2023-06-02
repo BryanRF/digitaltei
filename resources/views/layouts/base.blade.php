@@ -19,6 +19,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
         {{-- <script src="{{asset('/assets/js/charts-lines.js') }}" defer></script> --}}
         {{-- <script src="{{asset('/assets/js/charts-pie.js') }}" defer></script>  --}}
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>

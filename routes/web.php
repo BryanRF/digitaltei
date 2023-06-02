@@ -10,7 +10,7 @@ use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 Route::get('/', LoginController::class)->name('auth.login');
 
 
@@ -56,16 +56,21 @@ Route::middleware('auth.check')->group(function () {
     //! Empleados
     Route::resource('empleados',EmployeeController::class)->parameters(['empleados'=>'employee'])->names('employee');
     Route::delete('empleados/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroyed');
-    Route::get('papelera/empleados', [RecycleController::class, 'employees'])->name('recycle.employee.index');
     Route::put('empleados/restaurar/{id}', [EmployeeController::class, 'restored'])->name('employee.restored');
     Route::resource('productos',ProductController::class)->parameters(['productos'=>'product'])->names('product');
+    Route::get('papelera/empleados', [RecycleController::class, 'employees'])->name('recycle.employee.index');
     //! Contratos
     Route::resource('contratos',ContractController::class)->parameters(['contratos'=>'contract'])->names('contract');
     Route::get('empleados/contratos/{id}', [ContractController::class, 'show'])->name('employee.contract.show');
     Route::delete('contratos/{id}', [ContractController::class, 'destroy'])->name('contract.destroyed');
-    Route::get('papelera/empleados', [RecycleController::class, 'contract'])->name('recycle.contract.index');
+    Route::get('papelera/contratos', [RecycleController::class, 'contract'])->name('recycle.contract.index');
     Route::put('contratos/restaurar/{id}', [ContractController::class, 'restored'])->name('contract.restored');
 
 
 
 });
+
+
+
+Route::get('check-password/{password}', [UserController::class, 'checkPassword'])->name('user.checkPassword');
+
