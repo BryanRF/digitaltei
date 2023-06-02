@@ -29,11 +29,11 @@ Route::get('datatable/employee', [DataTablesController::class, 'employee'])->nam
 Route::get('datatable/employee/trashed', [DataTablesController::class, 'employeeTrashed'])->name('datatable.employee.trashed');
 //!-----------------------------------------------------------------------------------------------------------------------------------
 
-
 //! Api datatable
 Route::get('datatable/empleados/contratos/{id}', [DataTablesController::class, 'contractById'])->name('datatable.contract.employee');
 Route::get('datatable/contratos', [DataTablesController::class, 'contract'])->name('datatable.contract');
 Route::get('datatable/contratos/trashed', [DataTablesController::class, 'contractTrashed'])->name('datatable.contract.trashed');
+
 
 
 Route::get('empleados/dni/{document}', [EmployeeController::class, 'showbydni'])->name('employee.dni');
