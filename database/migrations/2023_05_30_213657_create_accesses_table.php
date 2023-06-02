@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('users_id');
-            $table->unsignedInteger('access_details_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('access_detail_id');
             $table->timestamps();
-            $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('access_details_id')->references('id')->on('access_details');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('access_detail_id')->references('id')->on('access_details');
      
         });
     }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->string('file')->nullable();
             $table->string('description');
+            $table->string('code')->unique();
             $table->decimal('salary', 8, 2);
             $table->timestamps();
             $table->softDeletes();

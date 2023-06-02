@@ -17,8 +17,8 @@ class AccessSeeder extends Seeder
     {
             // //? accessos y permisos de empleado id=1
             $accesses = new Access;
-            $accesses->users_id = 1;
-            $accesses->access_details_id = 1;
+            $accesses->user_id = 1;
+            $accesses->access_detail_id = 1;
             $accesses->save();
     }
 

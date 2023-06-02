@@ -31,7 +31,7 @@ class UpdateEmployee extends FormRequest
             'birthday_date' => 'required|date|before:today,18 years',
             'gender' => 'required',
             'phone' => 'required|unique:employees,phone,' . $this->employee->id,
-            'jobs_id' => 'required',
+            'job_id' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'file' => 'nullable|mimes:pdf,doc,docx',
         ];
@@ -47,7 +47,7 @@ class UpdateEmployee extends FormRequest
             'birthday_date.before' =>'Debe ser mayor de 18 años',
             'gender.required' =>'Debe seleccionar el género',
             'phone.required' =>'Debe ingresar un número de teléfono',
-            'jobs_id.required'=>'Debe seleccionar el cargo',
+            'job_id.required'=>'Debe seleccionar el cargo',
             'avatar.image' =>'El archivo seleccionado no es una imagen',
             'avatar.mimes' =>'Solo se permiten los formatos jpeg,png,jpg,gif y svg',
             'file.mimes' => 'Solo se permiten los formatos PDF o Word (doc, docx).'

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 class LoginController extends Controller
 {
@@ -15,7 +17,7 @@ class LoginController extends Controller
             return  redirect()->to(route('home'));
         }
         $titulo = "Login";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view ('auth.login',compact('titulo','empresa'));
        }
 
@@ -26,7 +28,11 @@ class LoginController extends Controller
            }
        
            $user = Auth::getProvider()->retrieveByCredentials($request->only('email', 'password'));
-       
+           
+           $employeeId = auth()->user()->employee_id;
+           $employee = Employee::find($employeeId);
+           $avatar = $employee->avatar;
+           session()->put('avatar', $avatar);
            return $this->authenticated($request, $user);
        }
       public function authenticated(Request $request,$user){

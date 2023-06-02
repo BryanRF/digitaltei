@@ -31,18 +31,18 @@
               </span>
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="categories_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
                 Tipo de producto <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
-            id="categories_id" name="categories_id">
+            id="category_id" name="category_id">
             <option  value="" >Seleccione una opcion</option>
                 @foreach($types as $brand)
                     <option  value="{{($brand->id)}}" >{{($brand->name)}}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
-                @error('categories_id') 
+                @error('category_id') 
                 {{($message)}}
                 @enderror
               </span>
@@ -76,18 +76,18 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="categories_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
                 Marca <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
-            id="brands_id" name="brands_id">
+            id="brand_id" name="brand_id">
             <option  value="" >Seleccione una opcion</option>
                 @foreach($brands as $brand)
                     <option  value="{{($brand->id)}}" >{{($brand->name)}}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
-                @error('brands_id') 
+                @error('brand_id') 
                 {{($message)}}
                 @enderror
               </span>
@@ -146,24 +146,24 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="categories_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
                 Categoria <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
-            id="categories_id" name="categories_id">
+            id="category_id" name="category_id">
             <option  value="" >Seleccione una opcion</option>
                 @foreach($categories as $category)
                     <option  value="{{($category->id)}}" >{{($category->name)}}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
-                @error('categories_id') 
+                @error('category_id') 
                 {{($message)}}
                 @enderror
               </span>
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="categories_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
                 Sub Categoria <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"

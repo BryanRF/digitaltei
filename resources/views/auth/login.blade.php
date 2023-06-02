@@ -45,6 +45,7 @@
               color:white;
 
             }
+          
         </style>
   </head>
   <body >
@@ -61,13 +62,13 @@
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div class="w-full">
               <h1 class="mb-4 text-center mx-auto  font-semibold text-gray-700 dark:text-gray-200">
-                SISTEMA ADMINISTRATIVO DE <strong class="yellow">DIGITALTEI</strong>
+                INICIA SESION EN <strong class="yellow">DIGITALTEI</strong>
               </h1>
         <form method="post" action="{{route('auth.login.employee')}}">
           @csrf
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400">Correo Electronico</span>
-                  <input id="email" name="email" class="block w-full mt-1 text-sm dark:border-gray-600 text-black
+                  <input id="email" name="email" value="{{old('email')}}" class="block w-full mt-1 text-sm dark:border-gray-600 text-black
                    dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
                    focus:shadow-outline-amber dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
                   placeholder="ejemplo@email.com"/>
@@ -79,7 +80,7 @@
                 </label>
                 <label class="block mt-4 text-sm">
                   <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
-                  <input id="password" name="password"
+                  <input id="password" name="password" value="{{old('password')}}"
                     class="block w-full mt-1 text-sm dark:border-gray-600 text-black
                     dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
                     focus:shadow-outline-amber dark:text-gray-300 
@@ -93,25 +94,25 @@
                     </span>
                 </label>
                 <button type="submit" class="block w-full px-4 py-2 mt-4 iniciarSesion
-                  text-sm font-medium leading-5 
+                  text-sm font-medium leading-5  
                   text-center text-white transition-colors duration-150 bg-yellow-400 border
                    border-transparent rounded-lg active:bg-yellow-500 hover:bg-yellow-500
                     focus:outline-none focus:shadow-outline-yellow"
                   >
-                  Ingresar
+                  INGRESAR
                 </button>
               </form>
             
               <p class="mt-4">
-                <a class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline"
-                  href="./forgot-password.html">
+                <a class="text-sm font-medium text-amber-900 dark:text-amber-400 hover:underline"
+                href="{{route('auth.register.show')}}">
                   <strong>Olvidaste tu contraseña?</strong>
                 </a>
               </p>
               <p class="mt-1">
                 <a
-                  class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline"
-                  href="./create-account.html">
+                  class="text-sm font-medium text-amber-900 dark:text-amber-400 hover:underline"
+                  href="{{route('auth.register.show')}}">
                   <strong>Crear cuenta</strong>
                 </a>
               </p>

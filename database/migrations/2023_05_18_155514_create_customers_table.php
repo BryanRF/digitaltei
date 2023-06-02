@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->unsignedInteger('customer_types_id')->required();
-            $table->foreign('customer_types_id')->references('id')->on('customer_types');
+            $table->unsignedInteger('customer_type_id')->required();
+            $table->foreign('customer_type_id')->references('id')->on('customer_types');
             $table->timestamps();
             $table->softDeletes();
         });

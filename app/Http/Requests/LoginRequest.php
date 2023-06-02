@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Support\Facades\Auth;
 class LoginRequest extends FormRequest
 {
     /**
@@ -22,20 +23,30 @@ class LoginRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
-        return [
-            'email' => 'required|email',
-            'password' => 'required'
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'email.email' => 'Debe proporcionar una dirección de correo electrónico válida.',
-            'email.required' => 'El Correo electronico es obligatoria.',
-            'password.required' => 'La contraseña es obligatoria.',
-        ];
-    }
+{
+    return [
+        'email' => 'required|email|exists:users,email',
+        'password' => [
+            'required',
+            function ($attribute, $value, $fail) {
+                if (!Auth::attempt(['email' => request('email'), 'password' => $value])) {
+                    $fail('La contraseña proporcionada es incorrecta.');
+                }
+            },
+        ],
+    ];
+}
+
+public function messages()
+{
+    return [
+        'email.email' => 'Debe proporcionar una dirección de correo electrónico válida.',
+        'email.required' => 'El correo electrónico es obligatorio.',
+        'email.exists' => 'El correo electrónico ingresado no está registrado.',
+        'password.required' => 'La contraseña es obligatoria.',
+    ];
+}
+    
     // public function getCredentials(){
     //     $username = $this->get('name');
     //     if($this->isEmail($username)){

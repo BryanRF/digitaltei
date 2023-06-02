@@ -17,33 +17,33 @@ class EmployeeController extends Controller
     protected $empresa = "DIGITALTEI";
     public function index()
     {
-        $this->LoginStatus();
+        
         $titulo = "Gestion de empleados";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('employee.index',compact('titulo','empresa'));
     }
   
   
     public function edit(Employee $employee)
     {
-        $this->LoginStatus();
+        
         $jobs = Job::all();
         $titulo = "Editar empleado";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('employee.edit',compact('employee','jobs','titulo','empresa'));
     }
     public function create()
     {
-        $this->LoginStatus();
+        
         $jobs = Job::all();
         $data[]=null;
         $titulo = "Nuevo empleado";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('employee.create',compact('titulo','jobs','empresa','data'));
     }
     public function showbydni($dni)
     {
-        $this->LoginStatus();
+        
        
         try {
             $employee = Employee::where('document', $dni)->firstOrFail();
@@ -56,7 +56,7 @@ class EmployeeController extends Controller
     }
     public function store(StoreEmployee $request)
     {
-        $this->LoginStatus();
+  
         $success=null;
         $data = $request->all();
         if ($request->hasFile('avatar')) {
@@ -89,7 +89,7 @@ class EmployeeController extends Controller
     }
     public function update(UpdateEmployee $request, Employee $employee)
     {
-        $this->LoginStatus();
+        
         $data = $request->all();
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
@@ -126,7 +126,7 @@ class EmployeeController extends Controller
 
     public function restored($id)
     {
-        $this->LoginStatus();
+        
         $empleado = Employee::withTrashed()->find($id); // find the soft deleted user by id
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->update(['deleted_at' => null]); // restore the user
@@ -137,7 +137,7 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        $this->LoginStatus();
+        
         $empleado = Employee::find($id);
         $name = $empleado->name . ' '.$empleado->lastname;
         $empleado->delete();
@@ -146,7 +146,7 @@ class EmployeeController extends Controller
     }
     public function show($id)
     {
-        $this->LoginStatus();
+        
         $empleado = Employee::find($id);
  
 

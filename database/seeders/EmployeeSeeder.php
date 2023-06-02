@@ -27,7 +27,7 @@ class EmployeeSeeder extends Seeder
         'avatar' => 'images/0twcwAJ0gXptdkaUWyGq.png',
         'birthday_date' => '1999-12-26',
         'gender' => 'Masculino',
-        'jobs_id' => 1,
+        'job_id' => 1,
         'isUser' => 1
     
     ]);

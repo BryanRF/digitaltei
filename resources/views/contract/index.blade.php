@@ -33,7 +33,7 @@
                         <th class="px-4 py-3">Empleado</th>
                         <th class="px-4 py-3">DNI</th>
                         <th class="px-4 py-3">Cargo</th>
-                        <th class="px-4 py-3">Posicion</th>
+                        <th class="px-4 py-3">Codigo</th>
                         <th class="px-4 py-3">Fecha Inicio</th>
                         <th class="px-4 py-3">Fecha Fin</th>
                         <th class="px-4 py-3">Duracion</th>
@@ -77,7 +77,13 @@
             },
         },
         {data: 'job_name', name: 'job_name' },
-        {data: 'description', name: 'description' },
+        { 
+            render: function (data, type, row, meta) {
+                return  '<td class="px-4 py-3 text-sm">'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.code+'</button>'+
+                        '</td>';
+            },
+        },
         {data: 'start_date', name: 'start_date' },
         {data: 'end_date', name: 'end_date' },
         {data: 'duration', name: 'duration' },
@@ -110,12 +116,12 @@
         },
         {
             render: function (data, type, row, meta) {
-        var employeeId = row.id;
-        var editUrl = "{{ route('employee.edit', ':employee_id') }}";
-        editUrl = editUrl.replace(':employee_id', employeeId);
+        
+        var editUrl = "{{ route('contract.edit', ':uddd') }}";
+        editUrl = editUrl.replace(':uddd', row.id);
 
 
-    var html = ' <a href="{{route("employee.edit", ":employee_id")}}" style="border: none;" class="p-2 focus:outline-none focus:shadow-outline-gray editar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>'+
+        var html = ' <a href="{{route("contract.edit", ":employee_id")}}" style="border: none;" class="p-2 focus:outline-none focus:shadow-outline-gray editar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>'+
                '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '"><i class="fas fa-trash-alt"></i></button>';
         html = html.replace(/:employee_id/g, row.id);
     return html;
@@ -232,7 +238,7 @@
     $(document).on('click', '.eliminar', function () {
         var button = $(this);
     Swal.fire({
-        title: 'Eliminar Empleado',
+        title: 'Eliminar Contrato',
         text: "¿Está seguro de eliminar este registro?",
         icon: 'warning',
         showCancelButton: true,
@@ -254,14 +260,12 @@
 
 function deleteFila(id,row) {
     $.ajax({
-        url: '{{ route("employee.dni", ":id") }}'.replace(':id', id),
+        url: '{{ route("contract.destroyed", ":id") }}'.replace(':id', id),
         type: 'DELETE',
         data: {
             '_token': '{{ csrf_token() }}'
         },
         success: function (data) {
-            console.log(data);
-            
             Swal.fire({
             icon: 'success',
             title: 'Se eliminó a ' + data.message + ' del registro',

@@ -12,6 +12,7 @@ class Employee extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $guarded =[];
     protected function name(): Attribute
     {
         return new Attribute(
@@ -35,7 +36,7 @@ class Employee extends Model
             set:fn($value) => strtolower($value)
         );
     }
-    protected $guarded =[];
+    
     // public function getRouteKeyName()
     // {
     //     return 'slug';

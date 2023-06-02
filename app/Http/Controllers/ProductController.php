@@ -41,7 +41,7 @@ class ProductController extends Controller
         ->get();
         // dd($product);
         $titulo = "Gestion de Productos";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('product.index', compact('product', 'empresa','titulo',));
     }
   
@@ -53,7 +53,7 @@ class ProductController extends Controller
         $subcategories =  SubCategory::all();
         // $utilities = Utility::all();
         $titulo = "Editar producto";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('product.edit',compact('product','brands','categories','types','subcategories','utilities','titulo','empresa'));
     }
     public function create()
@@ -64,7 +64,7 @@ class ProductController extends Controller
         $subcategories =  SubCategory::all();
         // $utilities = Utility::all();
         $titulo = "Nuevo producto";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('product.create',compact('brands','categories','types','subcategories','titulo','empresa'));
     }
     public function store(StoreProduct $request)

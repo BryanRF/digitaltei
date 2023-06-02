@@ -23,7 +23,7 @@ class DatatablesController extends Controller
         $data = Employee::select('employees.*')
         ->selectRaw('CONCAT (TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()), " años") AS age')
         ->selectRaw('jobs.name as job_name')
-        ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')
+        ->join('jobs', 'jobs.id', '=', 'employees.job_id')
         ->orderBy('id', 'desc')
         ->get()
         ->map(function ($item) {
@@ -38,7 +38,7 @@ class DatatablesController extends Controller
         $data = Employee::select('employees.*')
         ->selectRaw('CONCAT (TIMESTAMPDIFF(YEAR, employees.birthday_date, CURDATE()), " años") AS age')
         ->selectRaw('jobs.name as job_name')
-        ->join('jobs', 'jobs.id', '=', 'employees.jobs_id')
+        ->join('jobs', 'jobs.id', '=', 'employees.job_id')
         ->orderBy('id', 'desc')
             ->whereNotNull('employees.deleted_at')->withTrashed() 
             ->get()
@@ -48,10 +48,25 @@ class DatatablesController extends Controller
             });
         return datatables()->of($data)->toJson();
     }
+    
     public function contract(){
         $data = Contract::selectRaw('contracts.*,employees.*,CONCAT(UCASE(employees.name)," ",UCASE(employees.lastname)) as employee_name, jobs.name as job_name, CONCAT(TIMESTAMPDIFF(MONTH, start_date, end_date), " meses") as duration')
             ->join('jobs', 'jobs.id', '=', 'contracts.job_id')
             ->join('employees', 'employees.id', '=', 'contracts.employee_id')
+            ->get()->map(function ($item) {
+                $item->employee_name = ucwords(strtolower($item->employee_name));
+                $item->start_date = \Carbon\Carbon::parse($item->start_date)->format('d/m/Y');
+                $item->end_date = \Carbon\Carbon::parse($item->end_date)->format('d/m/Y');
+                return $item;
+            });
+    
+        return datatables()->of($data)->toJson();
+    }
+    public function contractTrashed(){
+        $data = Contract::selectRaw('contracts.*,employees.*,CONCAT(UCASE(employees.name)," ",UCASE(employees.lastname)) as employee_name, jobs.name as job_name, CONCAT(TIMESTAMPDIFF(MONTH, start_date, end_date), " meses") as duration')
+            ->join('jobs', 'jobs.id', '=', 'contracts.job_id')
+            ->join('employees', 'employees.id', '=', 'contracts.employee_id')
+            ->whereNotNull('contracts.deleted_at')->withTrashed() 
             ->get()->map(function ($item) {
                 $item->employee_name = ucwords(strtolower($item->employee_name));
                 $item->start_date = \Carbon\Carbon::parse($item->start_date)->format('d/m/Y');

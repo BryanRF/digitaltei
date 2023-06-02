@@ -139,12 +139,12 @@
 
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="jobs_id">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="job_id">
                     Cargo
                 </label>
-                {{Form::select('jobs_id', $jobs->pluck('name','id'), $employee->jobs_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray']) }}
+                {{Form::select('job_id', $jobs->pluck('name','id'), $employee->job_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray']) }}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('jobs_id') {{($message)}} @enderror
+                    @error('job_id') {{($message)}} @enderror
                 </span>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function LoginStatus(){
         if(!Auth::check()){
             return  redirect()->to(route('auth.login'));
         }
+    }
+    public function nameEmpresa(){
+
+        return "DIGITALTEI";
     }
 }

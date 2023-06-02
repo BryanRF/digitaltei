@@ -18,7 +18,14 @@ class Contract extends Model
             set:fn($value) => strtolower($value)
         );
     }
-    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($contract) {
+            $contract->code =strtoupper(uniqid().date('Y')) ; // Genera un código único utilizando uniqid()
+        });
+    }
     
     
 }

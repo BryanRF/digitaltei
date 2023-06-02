@@ -27,10 +27,10 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('file')->nullable();
             $table->boolean('isUser')->default(0)->nullable();
-            $table->unsignedInteger('jobs_id')->notNull();
+            $table->unsignedInteger('job_id')->notNull();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('jobs_id')->references('id')->on('jobs');
+            $table->foreign('job_id')->references('id')->on('jobs');
         });
     }
 

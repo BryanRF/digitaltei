@@ -25,7 +25,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [1m--- a/app/Http/Controllers/EmployeeController.php[m
 [1m+++ b/app/Http/Controllers/EmployeeController.php[m
 [36m@@ -33,13 +33,13 @@[m [mpublic function edit(Employee $employee)[m
-         $empresa = $this->empresa;[m
+         $empresa = $this->nameEmpresa();[m
          return view('employee.edit',compact('employee','jobs','titulo','empresa'));[m
      }[m
 [31m-    public function created()[m
@@ -34,7 +34,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
          $jobs = Job::all();[m
         [m
          $titulo = "Nuevo empleado";[m
-         $empresa = $this->empresa;[m
+         $empresa = $this->nameEmpresa();[m
 [31m-        return view('employee.created',compact('titulo','jobs','empresa'));[m
 [32m+[m[32m        return view('employee.create',compact('titulo','jobs','empresa'));[m
      }[m
@@ -74,7 +74,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [31m-            'birthday_date' => 'required',[m
 [31m-            'gender' => 'required',[m
 [31m-            'phone' => 'required|unique:employees',[m
-[31m-            'jobs_id' => 'required',[m
+[31m-            'job_id' => 'required',[m
 [31m-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg'[m
 [31m-        ]);[m
 [31m-    }[m
@@ -87,7 +87,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [31m-             'birthday_date' => 'required',[m
 [31m-             'gender' => 'required',[m
 [31m-             'phone' => 'required|unique:employees,phone,'.$request->id,[m
-[31m-             'jobs_id' => 'required',[m
+[31m-             'job_id' => 'required',[m
 [31m-             'avatar' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048'[m
 [31m-         ]);[m
 [31m-     }[m
@@ -173,7 +173,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [1m--- a/database/migrations/2023_02_07_173848_create_employees_table.php[m
 [1m+++ b/database/migrations/2023_02_07_173848_create_employees_table.php[m
 [36m@@ -32,7 +32,7 @@[m [mpublic function up()[m
-             $table->foreign('jobs_id')->references('id')->on('jobs');[m
+             $table->foreign('job_id')->references('id')->on('jobs');[m
          });[m
      }[m
 [31m-    [m
@@ -418,11 +418,11 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [31m-    </div>[m
 [31m-    <div class="flex flex-wrap">[m
 [31m-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">[m
-[31m-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="jobs_id">[m
+[31m-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="job_id">[m
 [31m-                Cargo <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>[m
 [31m-            </label>[m
 [31m-            <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"[m
-[31m-            id="jobs_id" name="jobs_id">[m
+[31m-            id="job_id" name="job_id">[m
 [31m-            <option  value="" >Seleccione una opcion</option>[m
 [31m-[m
 [31m-                @foreach($jobs as $job)[m
@@ -430,7 +430,7 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [31m-                @endforeach[m
 [31m-            </select>[m
 [31m-            <span class="text-xs text-red-600 dark:text-red-400">[m
-[31m-                @error('jobs_id') [m
+[31m-                @error('job_id') [m
 [31m-                {{($message)}}[m
 [31m-                @enderror[m
 [31m-              </span>[m

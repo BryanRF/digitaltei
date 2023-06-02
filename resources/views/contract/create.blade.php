@@ -5,18 +5,13 @@
         {{$titulo}}
       </h2>
     </div>
-    <!-- General elements -->
-    
-    <!-- Inputs with icons -->
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-      
-        @if (session('error'))
+        @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
     @endif
     <form id="getEmployee" >
-        @csrf
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="document">
@@ -24,30 +19,48 @@
                 </label>
                 <div class="flex">
                     <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input"
-                        id="document" value="{{ old('document') }}" type="text" name="document" placeholder="DNI">
-                    <button type="button" class="buscar bg-red-600 ms-2 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Buscar  
+                        id="document" value="{{old('document')}}" type="text" name="document" placeholder="DNI">
+                    <button type="button"
+                        class="buscar bg-red-600 mt-1 px-3 ms-2 hover:bg-red-700 text-white font-bold 
+                         rounded focus:outline-none focus:shadow-outline flex items-center">
+                        <i class="fa-solid fa fa-magnifying-glass"></i>
                     </button>
                 </div>
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('document')
+                    @error('employee_id')
+                    {{ $message }}
+                    @enderror
+                </span>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="document">
+                    Nombre del empleado <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                <div class="flex">
+                    <input class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input"
+                    id="name" value="{{ old('name') }}" type="text" name="name" placeholder="Nombre del empleado" readonly>
+
+               
+                </div>
+                
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    @error('employee_id')
                     {{ $message }}
                     @enderror
                 </span>
             </div>
         </div>
-        
-    
-        
     </form>
+
     
 <form method="post" action="{{route('contract.store')}}"  enctype="multipart/form-data">
     @csrf
-    
+    <input type="hidden" id="employee_id" name="employee_id" >
+
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="document">
-                Descripcion <i class="fa-regular fas fa-circle-exclamation" title="Deber ser unico"></i>
+                Descripcion 
             </label>
             <input value="{{ old('description') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
             id="description" type="text" name="description"   placeholder="Descripcion del contrato.">
@@ -62,7 +75,7 @@
                 Salario <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <input value="{{ old('salary') }}" class="block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700  form-input"
-            id="salary" type="text" name="salary"   placeholder="Salario">
+            id="salary" type="number" name="salary"   placeholder="Salario">
             <span class="text-xs text-red-600 dark:text-red-400">
                 @error('salary') 
                 {{($message)}}
@@ -119,19 +132,19 @@
               </span>
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="jobs_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="job_id">
                 Cargo <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
-            id="jobs_id" name="jobs_id">
+            id="job_id" name="job_id">
             <option  value="" >Seleccione una opcion</option>
 
                 @foreach($jobs as $job)
-                <option value="{{ $job->id }}" @if(old('jobs_id') == $job->id) selected @endif>{{ $job->name }}</option>
+                <option value="{{ $job->id }}" @if(old('job_id') == $job->id) selected @endif>{{ $job->name }}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
-                @error('jobs_id') 
+                @error('job_id') 
                 {{($message)}}
                 @enderror
               </span>
@@ -180,19 +193,30 @@ $(document).on('click', '.buscar', function () {
             showConfirmButton: false,
             timer: 1500,
             allowOutsideClick: false
-            });}else{
-
+            });
+            // Obtener el elemento del campo de entrada por su id
+            var inputElement = document.getElementById("name");
+            // Cambiar el valor del campo de entrada
+            var fullName = data.name + ' ' + data.lastname;
+            inputElement.value = fullName;
+            var inputElement = document.getElementById("employee_id");
+            // Cambiar el valor del campo de entrada
+            inputElement.value = data.id;
+        }else{
                 Swal.fire({
-            icon: 'info',
+            icon: 'warning',
             title: 'No hay ningun empleado con ese DNI',
             showConfirmButton: false,
             timer: 1500,
             allowOutsideClick: false
             });
+            document.getElementById("name").value="";
+            document.getElementById("employee_id").value="";
             }
         }
     }).fail(function () {
-      
+            document.getElementById("name").value="";
+            document.getElementById("employee_id").value="";
     });
 });
   </script>

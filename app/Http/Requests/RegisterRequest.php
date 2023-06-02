@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class RegisterRequest extends FormRequest
 {
     /**
@@ -24,29 +24,33 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'user_types_id' => 'required|exists:user_types,id',
-            'employees_id' => 'nullable|exists:employees,id',
-            'customers_id' => 'nullable|exists:customers,id',
+            'document' => [
+                'required',
+                Rule::exists('employees')->where(function ($query) {
+                    $query->where('document', $this->document)
+                        ->whereNotNull('job_id'); // Verifica que el empleado esté registrado y tenga un job asignado
+                }),
+            ],
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'El nombre es obligatorio.',
-            'email.required' => 'El correo electrónico es obligatorio.',
-            'email.email' => 'Debe proporcionar una dirección de correo electrónico válida.',
-            'email.unique' => 'El correo electrónico ya está registrado.',
-            'password.required' => 'La contraseña es obligatoria.',
-            'password.min' => 'La contraseña debe tener al menos :min caracteres.',
-            'password.confirmed' => 'Las contraseñas no coinciden.',
-            'user_types_id.required' => 'El tipo de usuario es obligatorio.',
-            'user_types_id.exists' => 'El tipo de usuario seleccionado no es válido.',
-            'employees_id.exists' => 'El ID de empleado seleccionado no es válido.',
-            'customers_id.exists' => 'El ID de cliente seleccionado no es válido.',
+            'document.required' => 'El DNI es obligatorio.',
+            'document.exists' => 'El empleado no existe o no tiene acceso.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'El email debe ser una dirección de correo electrónico válida.',
+            'email.unique' => 'El email ingresado ya está registrado.',
+            'password.required' => 'la contraseña es obligatorio.',
+            'password.min' => 'la contraseña debe tener al menos 8 caracteres.',
+            'password_confirmation.required' => 'El confirmar contraseña es obligatorio.',
+            'password_confirmation.same' => 'La confirmación no coincide con la contraseña ingresada.',
         ];
+        
+        
     }
 }

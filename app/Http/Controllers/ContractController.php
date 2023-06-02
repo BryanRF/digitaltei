@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContract;
 use App\Http\Requests\StoreEmployee;
+use App\Http\Requests\UpdateContract;
 use App\Http\Requests\UpdateEmployee;
+use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\Job;
 use Illuminate\Http\Request;
@@ -23,9 +26,8 @@ class ContractController extends Controller
     protected $empresa = "DIGITALTEI";
     public function index()
     {
-        $this->LoginStatus();
         $titulo = "Gestion de contratos";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('contract.index',compact('titulo','empresa'));
     }
 
@@ -36,13 +38,10 @@ class ContractController extends Controller
      */
     public function create()
     {
-        $this->LoginStatus();
         $jobs = Job::all();
-        $employee = Employee::all();
-        // $data[]=null;
         $titulo = "Nuevo contrato";
-        $empresa = $this->empresa;
-        return view('contract.create',compact('titulo','jobs','empresa','employee'));
+        $empresa = $this->nameEmpresa();
+        return view('contract.create',compact('titulo','jobs','empresa'));
     }
 
     /**
@@ -51,10 +50,29 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $this->LoginStatus();
+    public function store(StoreContract $request)
+{
+    $success = null;
+    $data = $request->all();
+    if ($request->hasFile('file')) {
+        $document = $request->file('file');
+        $filename = 'Contracto-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'-'.now().'.' .$document->getClientOriginalExtension();
+        $document->move(storage_path('app/public/documents'), $filename);
+        $data['file'] = 'documents/'.$filename;
     }
+    try {
+        if (Contract::create($data)) {
+            $success = "Contrato registrado.";
+            return redirect()->route('contract.index')->with('success', $success);
+        }
+    } catch (\Exception $e) {
+        $error = $e->getMessage();
+        return redirect()->back()->with('error', $error);
+    }
+    
+    return redirect()->back()->with('error', 'No se pudo registrar el registro.');
+}
+
 
     /**
      * Display the specified resource.
@@ -64,12 +82,10 @@ class ContractController extends Controller
      */
     public function show($id)
     {
-        $this->LoginStatus();
-        
         $employee = Employee::findOrFail($id);
         $nombre = $employee->name. ' '.$employee->lastname;
         $titulo = "Contratos de ".$nombre;
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('contract.show',compact('titulo','empresa','employee'));
     }
     
@@ -80,11 +96,14 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contract $contract)
     {
-        //
+        $jobs = Job::all();
+        $titulo = "Editar contrato";
+        $empresa = $this->nameEmpresa();
+        $employee = Employee::find($contract->employee_id);
+        return view('contract.edit',compact('contract','jobs','titulo','empresa','employee'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -92,9 +111,31 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateContract $request, Contract $contract)
     {
-        //
+        $data = $request->all();
+        
+        if ($request->hasFile('file')) {
+            $document = $request->file('file');
+            $filename = 'Contracto-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'-'.now().'.' .$document->getClientOriginalExtension();
+            $document->move(storage_path('app/public/documents'), $filename);
+            $data['file'] = 'documents/'.$filename;
+        }else{
+            $data['file'] = $contract->file;
+        }
+        
+        try {
+            if ($contract->update($data)) {
+            $success="Contrato actualizado.";
+                return redirect()->route('contract.index')->with('success', $success);
+            }
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            return redirect()->back()->with('error', $error);
+        }
+        
+        return redirect()->back()->with('error', 'No se pudo registrar el registro.');
+
     }
 
     /**
@@ -105,7 +146,10 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $empleado = Contract::find($id);
+        
+        $empleado->delete();
+        return response()->json(['message' => 'contrato']);
     }
-   
+  
 }

@@ -10,7 +10,13 @@ class RecycleController extends Controller
     public function employees()
     {
         $titulo = "Papelera de empleados";
-        $empresa = $this->empresa;
+        $empresa = $this->nameEmpresa();
         return view('employee.recycle',compact('titulo','empresa'));
+    }
+    public function contract()
+    {
+        $titulo = "Papelera de contratos";
+        $empresa = $this->nameEmpresa();
+        return view('contract.recycle',compact('titulo','empresa'));
     }
 }

@@ -172,19 +172,19 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="jobs_id">
+            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="job_id">
                 Cargo <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
             </label>
             <select class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select  dark:focus:shadow-outline-gray"
-            id="jobs_id" name="jobs_id">
+            id="job_id" name="job_id">
             <option  value="" >Seleccione una opcion</option>
 
                 @foreach($jobs as $job)
-                <option value="{{ $job->id }}" @if(old('jobs_id') == $job->id) selected @endif>{{ $job->name }}</option>
+                <option value="{{ $job->id }}" @if(old('job_id') == $job->id) selected @endif>{{ $job->name }}</option>
                 @endforeach
             </select>
             <span class="text-xs text-red-600 dark:text-red-400">
-                @error('jobs_id') 
+                @error('job_id') 
                 {{($message)}}
                 @enderror
               </span>
