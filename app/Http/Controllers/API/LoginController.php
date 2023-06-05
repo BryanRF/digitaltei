@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,11 @@ class LoginController extends Controller
     {
         //
     }
+  
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -63,7 +69,7 @@ class LoginController extends Controller
     {
         //
     }
-    public function loginEmployee(LoginRequest $request)
+    public function login(LoginRequest $request)
        {
            if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'Estas credenciales no coinciden con nuestros registros.'], 401);
@@ -73,4 +79,5 @@ class LoginController extends Controller
        
            return response()->json(['success' => true, 'user' => $user]);
        }
+    
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\SubCategoryController;
+use App\Http\Controllers\API\LoginController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -24,6 +25,9 @@ Route::resource('subcategorias',SubCategoryController::class)->names('sub_catego
 // Route::resource('productos',ProductController::class)->names('products');
 // Route::resource('categorias',CategoryController::class)->names('categories');
 // Route::resource('subcategorias',SubCategoryController::class)->names('sub_categories');
+
+// Ruta para login
+Route::get('login', [LoginController::class, 'login'])->name('login.access');
 
 // Ruta para mostrar productos por categoría
 Route::get('products/category/{id}', [ProductController::class, 'showbycategory'])->name('products.category');
