@@ -12,7 +12,7 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
+  
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
@@ -107,5 +107,7 @@ return [
     */
 
     'password_timeout' => 10800,
+    'email_verification' => true,
+    'verification' => true,
 
 ];

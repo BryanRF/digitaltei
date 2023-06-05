@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
                 }),
             ],
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed|different:email|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'password_confirmation' => 'required|same:password',
         ];
     }
@@ -45,12 +45,12 @@ class RegisterRequest extends FormRequest
             'email.required' => 'El email es obligatorio.',
             'email.email' => 'El email debe ser una dirección de correo electrónico válida.',
             'email.unique' => 'El email ingresado ya está registrado.',
-            'password.required' => 'la contraseña es obligatorio.',
-            'password.min' => 'la contraseña debe tener al menos 8 caracteres.',
-            'password_confirmation.required' => 'El confirmar contraseña es obligatorio.',
-            'password_confirmation.same' => 'La confirmación no coincide con la contraseña ingresada.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.confirmed' => 'La confirmación de contraseña no coincide.',
+            'password.different' => 'La contraseña no puede ser igual al correo electrónico.',
+            'password.regex' => 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.',
+            'password_confirmation.required' => 'La confirmación de contraseña es obligatoria.',
         ];
-        
-        
     }
 }

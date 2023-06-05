@@ -48,80 +48,43 @@
           
         </style>
   </head>
-  <body >
-    <div class="flex items-center min-h-screen p-6 back">
-      <div class="flex-1 h-full max-w-4xl
-       mx-auto overflow-hidden
-        bg-white rounded-lg shadow-xl dark:bg-gray-800">
-      
+  <body>
+    <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900 back">
+      <div
+        class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800 ">
         <div class="flex flex-col overflow-y-auto md:flex-row">
-          <a href="#"class="h-32 md:h-auto md:w-1/2">
-            <img class="object-cover w-full h-full "src="{{asset('/assets/img/login-office.png') }}" />
-            {{-- <img aria-hidden="true" class="hidden object-cover w-full h-full dark:block"src="{{asset('/assets/img/login-office-dark.jpeg') }}" alt="Office"/> --}}
-          </a>
+          <div class="h-32 md:h-auto md:w-1/2">
+            <img
+              aria-hidden="true"
+              class=" object-cover w-full h-full "
+              src="{{asset('/assets/img/forgot-password-office.jpeg') }}"
+              alt="Office"
+            />
+          </div>
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-            <div class="w-full">
-              <h1 class="mb-4 text-center mx-auto  font-semibold text-gray-700 dark:text-gray-200">
-                INICIA SESION EN <strong class="yellow">DIGITALTEI</strong>
-              </h1>
-        <form method="post" action="{{route('auth.login.employee')}}">
-          @csrf
-                <label class="block text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Correo Electronico</span>
-                  <input id="email" name="email" value="{{old('email')}}" class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-                   dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-                   focus:shadow-outline-amber dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
-                  placeholder="ejemplo@email.com"/>
-                  <span class="text-xs text-red-600 dark:text-red-400">
-                
-                    @error('email')
-                    
-                        <span class="text-xs text-red-600 dark:text-red-400">
-                            {{ $message }}
-                        </span>
-                    
-                @enderror
-              
-                  </span>
-                </label>
-                <label class="block mt-4 text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
-                  <input id="password" name="password" value="{{old('password')}}"
-                    class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-                    dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-                    focus:shadow-outline-amber dark:text-gray-300 
-                    dark:focus:shadow-outline-gray form-input"
-                    placeholder="Ingrese su contraseña"
-                    type="password"/>
-                    <span class="text-xs text-red-600 dark:text-red-400">
-                      @error('password') 
-                      {{($message)}}
-                      @enderror
-                    </span>
-                </label>
-                <button type="submit" class="block w-full px-4 py-2 mt-4 text-sm font-medium  leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                  INGRESAR
-                </button>
-              </form>
-            
-              <p class="mt-4">
-                <a class="text-sm font-medium text-black dark:text-white hover:underline"
-                href="{{route('auth.forgot-password')}}">
-                  <strong>Olvidaste tu contraseña?</strong>
-                </a>
-              </p>
-              <p class="mt-1">
-                <a
-                  class="text-sm font-medium text-black dark:text-white hover:underline"
-                  href="{{route('auth.register.show')}}">
-                  <strong>Crear cuenta</strong>
-                </a>
-              </p>
+            <div class="w-full mx-auto">
+              <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+                Confirmacion enviada correctamente 
+                 <svg aria-hidden="true" class="mx-auto h-10 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                 
+                </h1>
+              <span class="text-xs text-black-600 dark:text-white-400 mx-auto w-full">
+                Revisa tu correo e ingresa al vinculo enviado.
+            </span>
+              <button  id="back" class="block w-full px-4 py-2 mt-4 text-sm font-medium  leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                type="button">
+                Cerrar ventana
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      const backButton = document.getElementById('back'); // Obtiene el botón por su ID
+      backButton.addEventListener('click', function() {
+        window.close();// Realiza la acción al hacer clic en el botón
+      });
+        </script>
   </body>
-
 </html>

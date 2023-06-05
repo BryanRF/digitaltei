@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+// use Illuminate\Foundation\Auth\RegistersUsers;
 class RegisterController extends Controller
 {
 
@@ -31,7 +33,8 @@ class RegisterController extends Controller
           $user->user_type_id = 1;
           $user->save();
           Auth::login($user);
-          return redirect()->route('home');
+          event(new Registered($user));
+          return redirect()->route('notification.comfirm');
       }
    }
   

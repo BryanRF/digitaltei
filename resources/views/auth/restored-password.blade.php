@@ -5,7 +5,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('/assets/img/logo.png') }}">
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Digitaltei | {{$titulo}}</title>
+        <title>Digitaltei | Reestauracion</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -45,112 +45,111 @@
               color:white;
 
             }
+          
         </style>
   </head>
   <body >
-    <div class="flex items-center min-h-screen p-6 back">
-      <div class="flex-1 h-full max-w-4xl
-       mx-auto overflow-hidden
-        bg-white rounded-lg shadow-xl dark:bg-gray-800">
-      
+    <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900 back">
+      <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
         <div class="flex flex-col overflow-y-auto md:flex-row">
-          <a href="#"class="h-32 md:h-auto md:w-1/2">
-            <img class="object-cover w-full h-full "src="{{asset('/assets/img/login-office.png') }}" />
-            {{-- <img aria-hidden="true" class="hidden object-cover w-full h-full dark:block"src="{{asset('/assets/img/login-office-dark.jpeg') }}" alt="Office"/> --}}
-          </a>
-          <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+          <div class="h-32 md:h-auto md:w-1/2">
+            <img aria-hidden="true"
+            class=" object-cover w-full h-full "
+            src="{{asset('/assets/img/forgot-password-office.jpeg') }}"
+            alt="Office"/>
+          </div>
+          <form  action="{{route('password.store')}}"  method="POST" class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+            @csrf
             <div class="w-full">
-              <h1 class="mb-4 text-center mx-auto  font-semibold text-gray-700 dark:text-gray-200">
-                REGISTRATE EN <strong class="yellow">DIGITALTEI</strong>
+              <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+                Reestaurar Contraseña
               </h1>
-        <form method="post" action="{{route('auth.register.store')}}">
-          @csrf
-          <label class="block text-sm">
-            <span class="text-gray-700 dark:text-gray-400">DNI del Empleado</span>
-            <input value ="{{old('document')}}"id="document" name="document" class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-             dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-             focus:shadow-outline-amber dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
-            placeholder="Ingrese su dni"/>
-            
-            <span class="text-xs text-red-600 dark:text-red-400">
-              @error('document') 
-              {{($message)}}
+
+              <input type="hidden" name="email" value="{{request('email')}}" readonly>
+  
+              <label class="block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
+                <input name ="password" id ="password" type="password"class="block w-full mt-1 text-sm
+                  text-black dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none 
+                  focus:shadow-outline-purple dark:text-black-300 dark:focus:shadow-outline-gray form-input"
+                  placeholder="Ingrese su contraseña"/>
+              </label>
+              @error('password')
+              <span class="text-xs text-red-600 dark:text-red-400">
+                  {{ $message }}
+              </span>
               @enderror
-            </span>
-          </label>
-                <label class="block text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Correo Electronico</span>
-                  <input value ="{{old('email')}}"id="email" name="email" class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-                   dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-                   focus:shadow-outline-amber dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
-                  placeholder="ejemplo@email.com"/>
-                  <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('email') 
-                    {{($message)}}
-                    @enderror
-                  </span>
-                </label>
-                <label class="block mt-4 text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
-                  <input value ="{{old('password')}}" id="password" name="password"
-                    class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-                    dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-                    focus:shadow-outline-amber dark:text-gray-300 
-                    dark:focus:shadow-outline-gray form-input"
-                    placeholder="Ingrese su contraseña"
-                    type="password"/>
-                    <span class="text-xs text-red-600 dark:text-red-400">
-                      @error('password') 
-                      {{($message)}}
-                      @enderror
-                    </span>
-                </label>
-                <label class="block mt-4 text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Confirma tu contraseña</span>
-                    <input value ="{{old('password_confirmation')}}" id="password_confirmation" name="password_confirmation"
-                      class="block w-full mt-1 text-sm dark:border-gray-600 text-black
-                      dark:bg-gray-700 focus:border-amber-400 focus:outline-none 
-                      focus:shadow-outline-amber dark:text-gray-300 
-                      dark:focus:shadow-outline-gray form-input"
-                      placeholder="Ingrese nuevamente su contraseña"
-                      type="password"/>
-                      <span class="text-xs text-red-600 dark:text-red-400">
-                        @error('password_confirmation') 
-                        {{($message)}}
-                        @enderror
-                      </span>
-                  </label>
-                <button type="submit" id="registro" class="block w-full px-4 py-2 mt-4 text-sm font-medium  leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                  Registrarse
-                </button>
-              </form>
-            
-              <p class="mt-4">
-                <a class="text-sm font-medium text-black-900 dark:text-white-400 hover:underline"
-                href="{{route('auth.login')}}">
-                  <strong>Ya tienes una cuenta? Inicia sesion aqui.</strong>
+              <label class="block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Contraseña de confirmacion</span>
+                <input name ="password_confirmation" id ="password_confirmation" type="password"class="block w-full mt-1 text-sm
+                  text-black dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none 
+                  focus:shadow-outline-purple dark:text-black-300 dark:focus:shadow-outline-gray form-input"
+                  placeholder="Ingrese nuevamente su contraseña"/>
+              </label>
+              @error('password_confirmation')
+              <span class="text-xs text-red-600 dark:text-red-400">
+                  {{ $message }}
+              </span>
+              @enderror
+
+              <!-- You should use a button here, as the anchor is only used for the example  -->
+              <button type="submit" id="enviar" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Cambiar contraseña
+              </button>
+              
+              <p class="mt-1">
+                <a
+                  class="text-sm font-medium text-black dark:text-white hover:underline"
+                  href="{{route('auth.login')}}">
+                  <strong>Regresar a iniciar sesion</strong>
                 </a>
               </p>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </body>
   <script>
-
-    const backButton = document.getElementById('registro'); 
-    
+    const backButton = document.getElementById('enviar'); 
     backButton.addEventListener('click', function() {
       backButton.innerHTML = `
     <svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
       <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
     </svg>
-    Registrando...
+    Enviando correo...
   `;
-      window.location.href = "{{ route('notification.comfirm') }}"; 
      
     });
       </script>
+
+@if(session('status') != null)
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: '{{ session("status") }}',
+        showConfirmButton: false,
+        timer: 1500
+    })
+
+    // Eliminar la sesión 'success' después de mostrar el mensaje
+    @php
+        session()->forget('status');
+    @endphp
+</script>
+@endif
 </html>

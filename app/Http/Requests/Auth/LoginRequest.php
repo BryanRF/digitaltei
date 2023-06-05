@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Lockout;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
 class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,9 +22,10 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules()
+ 
+    public function rules(): array
     {
         return [
             'email' => 'required|email|exists:users,email',
@@ -40,8 +39,8 @@ class LoginRequest extends FormRequest
             ],
         ];
     }
-
-    public function messages()
+    
+    public function messages(): array
     {
         return [
             'email.email' => 'Debe proporcionar una dirección de correo electrónico válida.',
@@ -50,6 +49,12 @@ class LoginRequest extends FormRequest
             'password.required' => 'La contraseña es obligatoria.',
         ];
     }
+
+    /**
+     * Attempt to authenticate the request's credentials.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
@@ -65,6 +70,11 @@ class LoginRequest extends FormRequest
         RateLimiter::clear($this->throttleKey());
     }
 
+    /**
+     * Ensure the login request is not rate limited.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function ensureIsNotRateLimited(): void
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
@@ -90,23 +100,4 @@ class LoginRequest extends FormRequest
     {
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
     }
-
-        
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $credentials = $this->only('email', 'password');
-            
-            if (!Auth::attempt($credentials)) {
-                $validator->errors()->add('auth', 'Estas credenciales no coinciden con nuestros registros.');
-            } else {
-                $user = Auth::user();
-                
-                if (!$user->email_verified_at) {
-                    $validator->errors()->add('auth', 'Tu correo electrónico no ha sido verificado.');
-                }
-            }
-        });
-    }
-
 }

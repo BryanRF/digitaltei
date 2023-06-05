@@ -252,7 +252,6 @@ function deleteFila(id,row) {
             '_token': '{{ csrf_token() }}'
         },
         success: function (data) {
-            console.log(data);
             
             Swal.fire({
             icon: 'success',

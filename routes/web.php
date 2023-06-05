@@ -9,10 +9,16 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\EmailNotificationController;
+use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-Route::get('/', LoginController::class)->name('auth.login');
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+Route::get('/', LoginController::class)->name('auth.login');
+Route::get('cerrar-session', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('datatable/product', [DataTablesController::class, 'product'])->name('datatable.product');
 Route::get('datatable/category', [DataTablesController::class, 'category'])->name('datatable.category');
@@ -47,10 +53,10 @@ Route::post('registrar/empleados', [RegisterController::class, 'registerEmployee
 Route::post('logearse/empleados', [LoginController::class, 'loginEmployee'])->name('auth.login.employee');
 Route::post('logearse/clientes', [LoginController::class, 'loginCumstomer'])->name('auth.login.customer');
 //! Logout
-Route::get('cerrar-session', [LogoutController::class, 'logout'])->name('logout');
 
 
-Route::middleware('auth.check')->group(function () {
+
+Route::middleware(['auth.check','verified'])->group(function () {
     //! Paginas
     Route::get('inicio', HomeController::class)->name('home');
     //! Empleados
@@ -65,12 +71,33 @@ Route::middleware('auth.check')->group(function () {
     Route::delete('contratos/{id}', [ContractController::class, 'destroy'])->name('contract.destroyed');
     Route::get('papelera/contratos', [RecycleController::class, 'contract'])->name('recycle.contract.index');
     Route::put('contratos/restaurar/{id}', [ContractController::class, 'restored'])->name('contract.restored');
-
-
-
 });
-
-
+//* VERIFICACION DE CORREO ELECTRONICO
+//Solo es la ruta que recibe el correo hacia la pagina
+Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
+                ->middleware(['auth', 'signed', 'throttle:6,1'])
+                ->name('verification.verify');
+//Reenviar confirmacion
+Route::get('verify-email', EmailVerificationPromptController::class)
+->name('verification.notice');
+//Confirmacion enviada correctamente
+Route::get('notification-comfirm', EmailNotificationController::class)
+->name('notification.comfirm');
 
 Route::get('check-password/{password}', [UserController::class, 'checkPassword'])->name('user.checkPassword');
 
+// require __DIR__.'/auth.php';
+
+//*RECUPERACION DE CONTRASEÑA
+Route::get('password-reset', PasswordResetLinkController::class)
+->name('auth.forgot-password');
+
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+                ->middleware('guest')
+                ->name('password.email');
+Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+                ->name('password.reset');
+
+Route::post('reset-password', [NewPasswordController::class, 'store'])
+                ->middleware('guest')
+                ->name('password.store');
