@@ -7,12 +7,12 @@
             {{$titulo}}
             <br>
             <a href="{{route('contract.create')}}"
-                class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Nuevo Contrato
                 
             </a>
             {{-- <a href="{{route('recycle.contract.index')}}"
-                class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
                 Papelera
                 
             </a> --}}
@@ -22,7 +22,7 @@
   
    
     <!-- New Table -->
-    <div class="w-full overflow-hidden bg-white dark:bg-gray-800 rounded-lg text-gray-500  shadow-xs dark:text-gray-400">
+    <div class="w-full overflow-hidden bg-white dark:bg-gray-800 rounded text-gray-500  shadow-xs dark:text-gray-400">
         
         
         <div class="w-full overflow-x-auto ">
@@ -72,7 +72,7 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
                         '</td>';
             },
         },
@@ -80,7 +80,7 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.code+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.code+'</button>'+
                         '</td>';
             },
         },

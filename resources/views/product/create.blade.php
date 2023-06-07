@@ -184,16 +184,24 @@
 
 <div class="flex flex-wrap">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold
+        <button class="bg-base-600 active:bg-gray-500 hover:bg-gray-700 font-bold
          py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         type="submit">
             Registrar
         </button>
-        <a  href="{{(route('product.index'))}}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button  type="button" id="back" class="back bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             regresar
-        </a>
+        </button>
     </div>
 </div>
 </form>
     </div>
-  </div> @endsection
+  </div>
+  
+  <script>
+    const backButton = document.getElementById('back'); // Obtiene el botón por su ID
+    backButton.addEventListener('click', function() {
+      window.location.href = "{{ route('product.index') }}"; // Realiza la acción al hacer clic en el botón
+    });
+      </script>
+      @endsection

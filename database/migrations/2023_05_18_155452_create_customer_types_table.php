@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('customer_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->required();
+            $table->string('description')->required();
             // Agrega aquí los campos necesarios para la tabla de tipos de cliente
             $table->timestamps();
             $table->softDeletes();

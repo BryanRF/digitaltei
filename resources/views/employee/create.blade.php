@@ -189,17 +189,11 @@
                 @enderror
               </span>
         </div>
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="enabled">
-                Habilitar usuario <i class="fa-regular fas fa-circle-question" title="Permitir creacion de usuario para acceder al sistema."></i>
-            </label>
-            <input class="form-checkbox text-indigo-600 dark:text-indigo-400"
-            id="isUser" type="checkbox" name="isUser" value="0" >
-        </div>
+       
     </div>
 <div class="flex flex-wrap">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold
+        <button class="bg-base-600 active:bg-gray-500 hover:bg-gray-700  text-white font-bold
          py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         type="submit">
             Registrar

@@ -14,160 +14,149 @@
             {{ session('error') }}
         </div>
         @endif
-        {!! Form::model($employee, [ 'method' => 'PUT', 'route' => ['employee.update', $employee], 'enctype' => 'multipart/form-data']) !!}
+       
+        {!! Form::model($product, [ 'method' => 'PUT', 'route' => ['product.update', $product], 'enctype' => 'multipart/form-data']) !!}
         @csrf
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {{ Form::label('name', 'Nombre', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) }}
-                {{ Form::text('name', old('name', $employee->name), [
-                    'class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input',
-                    'id' => 'name',
-                    'placeholder' => 'Nombre',
-                ]) }}
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="name">
+                    Nombre <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {!! Form::text('name', old('name'), ['class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'id' => 'name', 'placeholder' => 'Nombre']) !!}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('name') {{($message)}} @enderror
+                    @error('name') 
+                    {{ $message }}
+                    @enderror
                 </span>
             </div>
-            <div class="w-full mb-6 md:w-1/2 px-3">
-                {{ Form::label('lastname', 'Apellido', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) }}
-                {{ Form::text('lastname', old('lastname', $employee->lastname), [
-                    'class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input',
-                    'id' => 'lastname',
-                    'placeholder' => 'Apellido',
-                ]) }}
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
+                    Tipo de producto <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {{Form::select('type_id', $types->pluck('name','id'), $product->type_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray', 'id' => 'type-select']) }}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('lastname') {{($message)}} @enderror
+                    @error('category_id') 
+                    {{ $message }}
+                    @enderror
                 </span>
             </div>
+        </div>
+        <div class="flex flex-wrap">
+            <div class="w-full  px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="description">
+                    Descripción <i class="fa-regular fas fa-circle-exclamation" title="Deber ser único"></i>
+                </label>
+                {!! Form::text('description', old('description'), ['class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'id' => 'description', 'placeholder' => 'Descripción']) !!}
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    @error('description') 
+                    {{ $message }}
+                    @enderror
+                </span>
+            </div>
+            
         </div>
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {{ Form::label('document','DNI', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) }}
-                {{ Form::text('document', old('document',$employee->document), [ 'class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'placeholder' => 'Documento', 'id' => 'document']) }}
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="brand_id">
+                    Marca <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {{Form::select('brand_id', $brands->pluck('name','id'), $product->brand_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray']) }}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('document') {{($message)}} @enderror
+                    @error('brand_id') 
+                    {{ $message }}
+                    @enderror
                 </span>
             </div>
-            <div class="w-full mb-6 md:w-1/2 px-3">
-                {!! Form::label('email', 'Correo Electrónico', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) !!}
-                {!! Form::text('email', old('email',$employee->email),
-                    ['class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input','id' => 'email','type' => 'email','placeholder' => 'Correo Electrónico']) !!}
-                <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('email') {{($message)}} @enderror
-                </span>
-            </div>
-        </div>
-        <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {!! Form::label('address', 'Dirección', [
-                    'class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2'
-                ]) !!}
-    
-                {!! Form::text('address', old('address',$employee->address), [
-                    'class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input',
-                    'placeholder' => 'Dirección',
-                    'id' => 'address'
-                ]) !!}
-    
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="presentation">
+                    Presentación <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {!! Form::text('presentation', old('presentation'), ['class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'id' => 'presentation', 'placeholder' => 'Correo Electrónico']) !!}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('address') {{($message)}} @enderror
+                    @error('presentation') 
+                    {{ $message }}
+                    @enderror
                 </span>
             </div>
-    
-            <div class="w-full mb-6 md:w-1/2 px-3">
-                {!! Form::label('birthday_date', 'Fecha de Nacimiento', [
-                    'class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2'
-                ]) !!}
-    
-                {!! Form::date('birthday_date', old('birthday_date',$employee->birthday_date), [
-                    'class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input',
-                    'placeholder' => 'Fecha de Nacimiento',
-                    'id' => 'birthday_date'
-                ]) !!}
-    
-                <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('birthday_date') {{($message)}} @enderror
-                </span>
-            </div>
+         
         </div>
+       
         <div class="flex flex-wrap">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {!! Form::label('gender', 'Género', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) !!}
-                {!! Form::select('gender', ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], $employee->gender, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray', 'id' => 'gender']) !!}
-                <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('gender') {{($message)}} @enderror
-                </span>
-            </div>
-            <div class="w-full mb-6 md:w-1/2 px-3">
-                {!! Form::label('phone', 'Teléfono', ['class' => 'block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2']) !!}
-                {!! Form::tel('phone', old('phone',$employee->phone), ['class' => 'block w-full mt-1 text-sm border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'id' => 'phone', 'placeholder' => 'Teléfono']) !!}
-                <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('phone') {{($message)}} @enderror
-                </span>
-            </div>
-        </div>
-        <div class="flex flex-wrap">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="file">
-                Documentos
-            </label>
-            <div class="relative w-full">
-                {!! Form::file('file', ['id' => 'file', 'class' => 'block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100', 'placeholder' => 'Seleccione un archivo']) !!}
-                <span id="document_name" class="file:text-sm file:font-medium text-slate-500 {{( empty($employee->file) ? 'hidden' : '' )}}">{{($employee->file)}}</span>
-            </div>
-            <span class="text-xs text-red-600 dark:text-red-400">
-                @error('file') {{($message)}} @enderror
-            </span>
-        </div>
-        <div class="w-full md:w-1/2 mb-6 px-3">
-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="avatar">
-                Avatar
-            </label>
-            <div class="flex items-center">
-                <div class="shrink-0">
-                    <img class="h-8 w-8 mr-3 object-cover rounded-full" src="{{( Storage::url($employee->avatar) )}}" />
+            <div class="w-full md:w-1/2 mb-6 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="image">
+                    Imagen
+                </label>
+                <div class="flex items-center">
+                    <div class="shrink-0">
+                        <img class="h-8 w-8 mr-3 object-cover rounded-full hidden" src=""/>
+                    </div>
+                    <label class="block w-full">
+                        {!! Form::file('image', ['id' => 'image', 'accept' => 'image/*', 'class' => 'block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100']) !!}
+                    </label>
                 </div>
-                <label class="block w-full">
-                    {!! Form::file('avatar', ['id' => 'avatar', 'accept' => 'image/*', 'class' => 'block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100']) !!}
-                </label>
-            </div>
-            <span class="text-xs text-red-600 dark:text-red-400">
-                @error('avatar') {{($message)}} @enderror
-            </span>
-        </div>
-    </div>
-
-        <div class="flex flex-wrap">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="job_id">
-                    Cargo
-                </label>
-                {{Form::select('job_id', $jobs->pluck('name','id'), $employee->job_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray']) }}
                 <span class="text-xs text-red-600 dark:text-red-400">
-                    @error('job_id') {{($message)}} @enderror
+                    @error('image') 
+                    {{ $message }}
+                    @enderror
                 </span>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="enabled">
-                    Habilitar usuario
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="price">
+                    Precio
                 </label>
-                {{Form::checkbox('isUser', $employee->isUser, $employee->isUser, ['class' => 'form-checkbox text-indigo-600 dark:text-indigo-400', 'id' => 'isUser']) }}
+                {!! Form::number('price', old('price'), ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 form-input', 'id' => 'price', 'placeholder' => 'Ingrese precio']) !!}
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    @error('price') 
+                    {{ $message }}
+                    @enderror
+                </span>
             </div>
         </div>
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {!! Form::submit('Actualizar', ['class' => 'bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
-                <a href="{{(route('employee.index'))}}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="category_id">
+                    Categoria <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {{Form::select('category_id', $categories->pluck('name','id'), $product->categories_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray', 'id' => 'category-select']) }}
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    @error('category_id') 
+                    {{ $message }}
+                    @enderror
+                </span>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="subcategory_id">
+                    Sub Categoria <i class="fa-regular fas fa-circle-exclamation" title="Importante"></i>
+                </label>
+                {{Form::select('subcategory_id',  $subcategories->pluck('name','id'), $product->subcategory_id, ['class' => 'block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select dark:focus:shadow-outline-gray', 'id' => 'subcategory-select']) }}
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    @error('subcategory_id') 
+                    {{ $message }}
+                    @enderror
+                </span>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                {!! Form::submit('Actualizar', ['class' => 'bg-base-600 active:bg-gray-500 hover:bg-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
+                <button type="button" id="back" class="back bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     regresar
-                </a>
+                </button>
             </div>
         </div>
     
-        {!! Form::close() !!}
-  
-        <!-- Invalid input -->
+    {!! Form::close() !!}
+    
+     
     </div>
 </div>
+<script>
+    const backButton = document.getElementById('back'); // Obtiene el botón por su ID
+    backButton.addEventListener('click', function() {
+      window.location.href = "{{ route('product.index') }}"; // Realiza la acción al hacer clic en el botón
+    });
+      </script>
 <style>
     .file-cta {
         position: absolute;
@@ -190,7 +179,7 @@
     }
 </style>
 <script>
-    document.getElementById("avatar").addEventListener("change", function () {
+    document.getElementById("image").addEventListener("change", function () {
         var reader = new FileReader();
         reader.onload = function (e) {
             document.querySelector(".shrink-0 img").src = e.target.result;
@@ -198,4 +187,72 @@
         reader.readAsDataURL(this.files[0]);
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // Obtén el elemento select de categoría y el elemento select de subcategoría
+         categorySelect = $('#category-select');
+         subcategorySelect = $('#subcategory-select');
+         SubcategoryId = subcategorySelect.val();
+         console.log('Primer id');
+         console.log(SubcategoryId);
+        
+// Realiza una solicitud AJAX para obtener las subcategorías correspondientes a la categoría seleccionada
+$.ajax({
+    url: '{{ route("datatable.category.subcategory", ":id") }}'.replace(':id', SubcategoryId),
+    type: 'GET',
+    success: function(response) {
+        console.log(response.data);
+        var categories = (response.data);
+        categorySelect.empty();
+        $.each(categories, function(index, category) {
+            categorySelect.append('<option value="' + category.id + '">' + category.name + '</option>');
+        });
+    },
+    error: function(xhr) {
+        console.log(xhr.responseText);
+    }
+});
+var categorySelect = $('#category-select');
+
+console.log('2do id');
+var categoryId = categorySelect.val();
+         console.log(categoryId);
+getReverse(categoryId);
+
+        categorySelect.change(function() {
+            var categoryId = $(this).val();
+
+            getReverse(categoryId);
+            
+        });
+    });
+
+         function getReverse(categoryId){
+             subcategorySelect = $('#subcategory-select');
+             
+             console.log(categoryId);
+            $.ajax({
+                url: '{{ route("datatable.subcategory.category", ":id") }}'.replace(':id', categoryId),
+                type: 'GET',
+                success: function(response) {
+                    console.log(response.data);
+                    // Parsea la respuesta JSON recibida
+                    var subcategories = (response.data);
+
+                    // Vacía el select de subcategoría
+                    subcategorySelect.empty();
+
+                    // Agrega las opciones de subcategoría al select
+                    $.each(subcategories, function(index, subcategory) {
+                        subcategorySelect.append('<option value="' + subcategory.id + '">' + subcategory.name + '</option>');
+                    });
+                },
+                error: function(xhr) {
+                    // Maneja los errores de la solicitud AJAX si es necesario
+                    console.log(xhr.responseText);
+                }
+            });
+         }
+</script>
+
 @endsection

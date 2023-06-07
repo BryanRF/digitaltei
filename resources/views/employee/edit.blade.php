@@ -147,16 +147,11 @@
                     @error('job_id') {{($message)}} @enderror
                 </span>
             </div>
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="enabled">
-                    Habilitar usuario
-                </label>
-                {{Form::checkbox('isUser', $employee->isUser, $employee->isUser, ['class' => 'form-checkbox text-indigo-600 dark:text-indigo-400', 'id' => 'isUser']) }}
-            </div>
+         
         </div>
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                {!! Form::submit('Actualizar', ['class' => 'bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
+                {!! Form::submit('Actualizar', ['class' => 'bg-base-600 active:bg-gray-500 hover:bg-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
                 <button  type="button" id="back" class="bg-red-600 back hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     regresar
                 </button>

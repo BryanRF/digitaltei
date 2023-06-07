@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
           $user->email= $request->email;
           $user->name= $employee->name.' '.$employee->lastname;
         //   $user->password= Hash::make($request->password);
-          $user->password= bcrypt($request->password);
+          $user->password= ($request->password);
           $user->employee_id = $employee->id;
           $user->user_type_id = 1;
           $user->save();

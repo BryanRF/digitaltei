@@ -2,7 +2,7 @@
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="es">
     <head>
         @vite('resources/css/app.css')
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('/assets/img/logo.png') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('/assets/img/logo.ico') }}">
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Digitaltei | Reestauracion</title>

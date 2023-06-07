@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,11 +15,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+ 
     protected $fillable = [
         'name',
         'email',
@@ -29,11 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'customer_id'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+   
     protected $hidden = [
         'password',
         'remember_token',
@@ -54,8 +46,14 @@ class User extends Authenticatable implements MustVerifyEmail
             set:fn($value) => strtolower($value)
         );
     }
-    public function  setPasswordAtributte($value){
-        $this->attributes['password']=bcrypt($value);
+    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->password =bcrypt($user->password);
+        });
     }
  
 }

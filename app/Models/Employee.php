@@ -20,7 +20,6 @@ class Employee extends Model
             set:fn($value) => strtolower($value)
         );
     }
- 
     protected function lastname(): Attribute
     {
         return new Attribute(
@@ -28,7 +27,6 @@ class Employee extends Model
             set:fn($value) => strtolower($value)
         );
     }
-
     protected function address(): Attribute
     {
         return new Attribute(
@@ -36,9 +34,4 @@ class Employee extends Model
             set:fn($value) => strtolower($value)
         );
     }
-    
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
 }

@@ -21,9 +21,14 @@ class Contract extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($contract) {
-            $contract->code =strtoupper(uniqid().date('Y')) ; // Genera un código único utilizando uniqid()
+            $prefix = 'CTRC';
+            $codeLength = 11; // Longitud del código, puedes ajustarla según tus necesidades
+            
+            $uniqueId = strtoupper(uniqid().date('Y'));
+            $code = strtoupper(substr($uniqueId, 0, $codeLength));
+            
+            $contract->code = $prefix . $contract->id . $code;
         });
     }
     

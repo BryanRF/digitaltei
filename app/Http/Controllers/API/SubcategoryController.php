@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
-class SubcategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.

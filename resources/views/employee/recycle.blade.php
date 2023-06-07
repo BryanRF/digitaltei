@@ -6,7 +6,11 @@
             {{$titulo}}
             <br>
             <a href="{{route('employee.index')}}"
-                class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class=" items-center mt-3 justify-between px-4 py-2 text-sm 
+                font-semibold leading-5 text-white transition-colors duration-150
+                 border border-transparent rounded-lg 
+                 bg-base-600 active:bg-gray-500 hover:bg-gray-700
+                 focus:outline-none focus:shadow-outline-amber">
                 Regresar a la lista
             </a>
         </h2>
@@ -79,21 +83,21 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-xs">'+
-                           ' <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
+                           ' <button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
                         '</td>';
             },
         },

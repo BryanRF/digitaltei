@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DataTables;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use App\Models\SubCategory;
 use App\Models\Type;
 use App\Models\Utility;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class DatatablesController extends Controller
+class EmployeeDataTables extends Controller
 {
     
     public function employee()

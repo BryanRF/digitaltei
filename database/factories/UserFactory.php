@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->password(),
             'email_verified_at' => now(),
-            'user_type_id' => $this->faker->numberBetween($min = 1, $max = 3),
+            'user_type_id' => 1,
             'employee_id' => function() use ($counter, $employeesIds) {
                 $result = $employeesIds[$counter - 1];
                 $counter++;

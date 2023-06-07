@@ -7,12 +7,23 @@
             {{$titulo}}
             <br>
             <a href="{{route('employee.create')}}"
-                class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class=" items-center mt-3 justify-between
+                 px-4 py-2 text-sm font-semibold leading-5
+                  text-white transition-colors duration-150 
+                  bg-base-600 active:bg-gray-500 hover:bg-gray-700
+                   border border-transparent
+                   rounded-lg focus:outline-none
+                     focus:shadow-outline-amber">
                 Nuevo
-                
             </a>
             <a href="{{route('recycle.employee.index')}}"
-                class=" items-center ml-2 mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class="items-center mt-3 ml-2 justify-between
+                px-4 py-2 text-sm font-semibold leading-5
+                 text-white transition-colors duration-150 
+                 bg-base-600 active:bg-gray-500 hover:bg-gray-700
+                  border border-transparent
+                  rounded-lg focus:outline-none
+                    focus:shadow-outline-amber">
                 Papelera <i class=" fas  fa-trash-can-arrow-up"></i>
                 
             </a>
@@ -93,21 +104,21 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-xs">'+
-                           ' <button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
+                           ' <button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.email+'</button>'+
                         '</td>';
             },
         },
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded-full " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.phone+'</button>'+
                         '</td>';
             },
         },
@@ -380,7 +391,7 @@ function deleteFila(id,row) {
 <script>
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'center',
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: false,

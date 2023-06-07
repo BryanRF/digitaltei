@@ -50,15 +50,17 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreContract $request)
+   public function store(StoreContract $request)
 {
-    $success = null;
     $data = $request->all();
+
     if ($request->hasFile('file')) {
         $document = $request->file('file');
-        $filename = 'Contracto-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'-'.now().'.' .$document->getClientOriginalExtension();
-        $document->move(storage_path('app/public/documents'), $filename);
-        $data['file'] = 'documents/'.$filename;
+        $filename = 'Contracto-' . $data['lastname'] . '-' . $data['name'] . '-' . $data['document'] . '-' . now()->format('Y-m-d_H-i-s') . '.' . $document->getClientOriginalExtension();
+
+        Storage::disk('public')->putFileAs('documents', $document, $filename);
+
+        $data['file'] = 'documents/' . $filename;
     }
     try {
         if (Contract::create($data)) {
@@ -112,17 +114,17 @@ class ContractController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateContract $request, Contract $contract)
-    {
-        $data = $request->all();
-        
-        if ($request->hasFile('file')) {
-            $document = $request->file('file');
-            $filename = 'Contracto-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'-'.now().'.' .$document->getClientOriginalExtension();
-            $document->move(storage_path('app/public/documents'), $filename);
-            $data['file'] = 'documents/'.$filename;
-        }else{
-            $data['file'] = $contract->file;
-        }
+{
+    $data = $request->all();
+
+    if ($request->hasFile('file')) {
+        $document = $request->file('file');
+        $filename = 'Contracto-' . $data['lastname'] . '-' . $data['name'] . '-' . $data['document'] . '-' . now()->format('Y-m-d_H-i-s') . '.' . $document->getClientOriginalExtension();
+
+        $data['file'] = $document->storeAs('public/documents', $filename);
+    } else {
+        $data['file'] = $contract->file;
+    }
         
         try {
             if ($contract->update($data)) {

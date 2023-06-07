@@ -34,7 +34,6 @@ class EmployeeFactory extends Factory
             'avatar' => 'images/default.png',
             'gender' => $this->faker->randomElement(['Femenino', 'Masculino']),
             'job_id' => $this->faker->numberBetween($min = 1, $max = 6),
-            'isUser' => $this->faker->numberBetween($min = 0, $max = 1),
             'birthday_date' => $this->faker->dateTimeBetween($startDate = '-18 years', $endDate = 'now')->format('Y-m-d'),
         ];
        

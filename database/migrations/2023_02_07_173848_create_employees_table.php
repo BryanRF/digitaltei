@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('phone')->notNull()->unique();
             $table->string('avatar')->nullable();
             $table->string('file')->nullable();
-            $table->boolean('isUser')->default(0)->nullable();
             $table->unsignedInteger('job_id')->notNull();
             $table->timestamps();
             $table->softDeletes();

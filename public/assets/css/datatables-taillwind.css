@@ -17,7 +17,7 @@ background-color: #edf2f7; 	/*bg-gray-200*/
 
 /*Row Hover*/
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-background-color: #ebf4ff;	/*bg-indigo-100*/
+background-color: #FEECDC;	/*bg-indigo-100*/
 }
 
 /*Pagination Buttons*/
@@ -29,22 +29,23 @@ border-radius: .25rem;			/*rounded*/
 
 /*Pagination Buttons - Current selected */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current	{
-color: #fff !important;				/*text-white*/
+color: #FEECDC !important;				/*text-white*/
 box-shadow: 0 1px 3px 0 rgba(230, 226, 226, 0.1), 0 1px 2px 0 rgba(204, 203, 203, 0.06); 	
 /* shadow; */
 font-weight: 700;					/*font-bold*/
 border-radius: .25rem;				/*rounded*/
-background: #129160 !important;		/*bg-indigo-500*/
+background: #FF7719 !important;		/*bg-indigo-500*/
 border: 1px solid transparent;		/*border border-transparent*/
 }
 
 /*Pagination Buttons - Hover */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover		{
-color: #fff !important;				/*text-white*/
+color: #FEECDC !important;				/*text-white*/
 /* box-shadow: 0 1px 3px 0 rgba(233, 231, 231, 0.1), 0 1px 2px 0 rgba(236, 235, 235, 0.06);	 shadow */
 font-weight: 700;					/*font-bold*/
 border-radius: .25rem;				/*rounded*/
-background: #075a2a !important;		/*bg-indigo-500*/
+--tw-bg-opacity: 1;
+background: rgba(55, 65, 81, var(--tw-bg-opacity)) !important;
 border: 1px solid transparent;		/*border border-transparent*/
 }
 
@@ -59,14 +60,36 @@ font-size: 10px;
 padding: 10px 20px;
 font-weight: 500;
 background: #1F2937;
-color: white;
+color: #FEECDC;
 border: none;
 position: relative;
 overflow: hidden;
 border-radius: 0.6em;
 
 }
+.bg-base-600 {
+    --tw-bg-opacity: 1;
+background-color: #FF7719;
+color:#FEECDC;
+}
+.text-amber-600 {
+--tw-text-opacity: 1;
+color: rgba(255, 193, 7, var(--tw-text-opacity));
+}
 
+.dark .text-amber-300 {
+--tw-text-opacity: 1;
+color: rgba(255, 193, 7, var(--tw-text-opacity));
+}
+.active\:bg-gray-500:active {
+--tw-bg-opacity: 1;
+background-color: rgba(113, 128, 150, var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-700:hover {
+--tw-bg-opacity: 1;
+background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
+}
 .buttons-excel::hover {
     background-color: #ffffff;
     color: #3399ff;
@@ -79,7 +102,7 @@ font-size: 10px;
 padding: 10px 20px;
 font-weight: 500;
 background: #1F2937;
-color: white;
+color: #FEECDC;
 border: none;
 position: relative;
 overflow: hidden;
@@ -96,7 +119,7 @@ font-size: 10px;
 padding: 10px 20px;
 font-weight: 500;
 background: #1F2937;
-color: white;
+color: #FEECDC;
 border: none;
 position: relative;
 overflow: hidden;
@@ -104,7 +127,7 @@ border-radius: 0.6em;
 
 }
 .buttons-pdf::hover {
-    background-color: #ffffff;
+    background-color: #FEECDC;
     color: #ff0000;
     border: 2px solid #ff0000;
     }
@@ -113,7 +136,7 @@ font-size: 10px;
 padding: 10px 20px;
 font-weight: 500;
 background: #1F2937;
-color: white;
+color: #FEECDC;
 border: none;
 position: relative;
 overflow: hidden;
@@ -126,7 +149,7 @@ border-radius: 0.6em;
 .transition {
 transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 transition-duration: 500ms;
-background-color: rgba(16, 185, 129, 0.6);
+background-color: #FF7719;
 border-radius: 9999px;
 width: 0;
 height: 0;

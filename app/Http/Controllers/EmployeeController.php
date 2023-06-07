@@ -55,30 +55,33 @@ class EmployeeController extends Controller
         }
     }
     public function store(StoreEmployee $request)
-    {
-  
-        $success=null;
-        $data = $request->all();
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = Str::random(20)  .'.' .$avatar->getClientOriginalExtension();
-            $imgFile = Image::make($avatar->getRealPath());
-            $ruta= storage_path().'\app\public\images/'.$filename;
-            $imgFile->resize(400, 400, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($ruta);
-            $data['avatar'] = 'images/'.$filename;
-        } 
-        else {
-            $data['avatar'] = 'images/default.png';
-        }
-        if ($request->hasFile('file')) {
-            $document = $request->file('file');
-            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$document->getClientOriginalExtension();
-            $ruta = storage_path('app/public/documents/'.$filename);
-            $document->move(storage_path('app/public/documents'), $filename);
-            $data['file'] = 'documents/'.$filename;
-        }
+{
+    $data = $request->all();
+
+    if ($request->hasFile('avatar')) {
+        $avatar = $request->file('avatar');
+        $filename = Str::random(20) . '.' . $avatar->getClientOriginalExtension();
+
+        $imgFile = Image::make($avatar->getRealPath());
+        $ruta = 'public/images/' . $filename;
+
+        $imgFile->resize(400, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save(storage_path('app/' . $ruta));
+
+        $data['avatar'] = $ruta;
+    } 
+
+    if ($request->hasFile('file')) {
+        $document = $request->file('file');
+        $filename = 'doc-info-' . $data['lastname'] . '-' . $data['name'] . '-' . $data['document'] . '.' . $document->getClientOriginalExtension();
+
+        $ruta = 'public/documents/' . $filename;
+
+        Storage::disk('public')->putFileAs('documents', $document, $filename);
+
+        $data['file'] = $ruta;
+    }
         if (Employee::create($data)) {
             $success="Empleado registrado.";
             return redirect()->route('employee.index')->with('success', $success);
@@ -89,31 +92,38 @@ class EmployeeController extends Controller
     }
     public function update(UpdateEmployee $request, Employee $employee)
     {
-        
         $data = $request->all();
+    
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $filename = Str::random(20)  .'.' .$avatar->getClientOriginalExtension();
+            $filename = Str::random(20) . '.' . $avatar->getClientOriginalExtension();
+    
             $imgFile = Image::make($avatar->getRealPath());
-            $ruta= storage_path().'\app\public\images/'.$filename;
+            $ruta = 'public/images/' . $filename;
+    
             $imgFile->resize(400, 400, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($ruta);
-            $data['avatar'] = 'images/'.$filename;
-        } 
-        else {
+            })->save(storage_path('app/' . $ruta));
+    
+            // Elimina el "/public" de la ruta para que coincida con la ruta deseada
+            $data['avatar'] = Str::replaceFirst('public/', '', $ruta);
+        } else {
             $data['avatar'] = $employee->avatar;
         }
+    
         if ($request->hasFile('file')) {
             $document = $request->file('file');
-            $filename = 'doc-info-'.$data['lastname'].'-'.$data['name'].'-'.$data['document'] .'.' .$document->getClientOriginalExtension();
-            $ruta = storage_path('app/public/documents/'.$filename);
-            $document->move(storage_path('app/public/documents'), $filename);
-            $data['file'] = 'documents/'.$filename;
-        }else{
+            $filename = 'doc-info-' . $data['lastname'] . '-' . $data['name'] . '-' . $data['document'] . '.' . $document->getClientOriginalExtension();
+    
+            $ruta = 'public/documents/' . $filename;
+    
+            Storage::putFileAs('app/' . $ruta, $document, $filename);
+    
+            // Elimina el "/public" de la ruta para que coincida con la ruta deseada
+            $data['file'] = Str::replaceFirst('public/', '', $ruta);
+        } else {
             $data['file'] = $employee->file;
         }
-        
         
         if ($employee->update($data)) {
             $success="Empleado actualizado.";

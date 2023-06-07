@@ -435,13 +435,6 @@ warning: in the working copy of 'routes/web.php', LF will be replaced by CRLF th
 [31m-                @enderror[m
 [31m-              </span>[m
 [31m-        </div>[m
-[31m-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">[m
-[31m-            <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-400 text-xs font-bold mb-2" for="enabled">[m
-[31m-                Habilitar usuario <i class="fa-regular fas fa-circle-question" title="Permitir creacion de usuario"></i>[m
-[31m-            </label>[m
-[31m-            <input class="form-checkbox text-indigo-600 dark:text-indigo-400"[m
-[31m-            id="isUser" type="checkbox" name="isUser" value="" >[m
-[31m-        </div>[m
 [31m-    </div>[m
 [31m-<div class="flex flex-wrap">[m
 [31m-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">[m

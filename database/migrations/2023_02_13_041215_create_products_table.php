@@ -19,9 +19,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->double('price')->required();
             $table->string('presentation')->nullable();
+            $table->string('code')->unique();
             $table->boolean('status')->default(true);
             $table->string('slug')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image')->default('images/default_product.png');
             $table->unsignedInteger('brand_id')->required();
             $table->unsignedInteger('subcategory_id')->required();
             $table->unsignedInteger('type_id')->required();

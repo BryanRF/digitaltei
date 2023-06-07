@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -29,10 +30,15 @@ class LoginController extends Controller
        
            $user = Auth::getProvider()->retrieveByCredentials($request->only('email', 'password'));
            
-           $employeeId = auth()->user()->employee_id;
-           $employee = Employee::find($employeeId);
-           $avatar = $employee->avatar;
-           session()->put('avatar', $avatar);
+           $isEmployee = User::where('id', auth()->user()->id)
+           ->whereNotNull('employee_id')
+           ->first();
+       
+       if (!$isEmployee) {
+           Session::flush();
+           Auth::logout();
+       }
+          
            return $this->authenticated($request, $user);
        }
       public function authenticated(Request $request,$user){

@@ -6,7 +6,12 @@
         <h2 class="col-span-6 md:col-span-3 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{$titulo}}
             <a href="{{route('product.create')}}"
-                class=" items-center mt-3 justify-between px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-amber-500 border border-transparent rounded-lg active:bg-amber-500 hover:bg-amber-700 focus:outline-none focus:shadow-outline-amber">
+                class=" items-center mt-3 justify-between 
+                px-4 py-2 text-sm font-semibold leading-5
+                  transition-colors
+                  duration-150    border border-transparent 
+                  rounded-lg bg-base-600 active:bg-gray-500
+                   hover:bg-gray-700 focus:outline-none focus:shadow-outline-amber">
                 Nuevo
             </a>
         </h2>
@@ -18,6 +23,7 @@
                 <thead>
                     <tr class="text-xs  font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">Nombre</th>
+                        <th class="px-4 py-3">Codigo de Barra</th>
                         <th class="px-4 py-3">Descripción </th>
                         <th class="px-4 py-3">Precio </th>
                         <th class="px-4 py-3">Presentación</th>
@@ -28,68 +34,7 @@
                         <th class="px-4 py-3 text-center no-export">Opciones</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach($product as $value)
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
-                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full border" src="{{ Storage::url($value->image) }}"/>
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">{{$value->name}} </p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400 ">
-                                        {{-- - {{$value->description}} --}}
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-4 py-3 text-sm truncate">
-                            {{$value->description}}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{$value->price}}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{$value->presentation}}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full  {{ $value->status ? 'bg-lime-600 text-white dark:text-white dark:bg-lime-600 ' : 'bg-red-500  text-white dark:text-white dark:bg-red-600 ' }}">
-                                {{ $value->status ? 'Active' : 'Inactive' }}
-                            </span>
-                        </td>
-                        <!-- <td class="px-4 py-3 text-sm">
-                            {{$value->utility}}
-                        </td> -->
-                        <td class="px-4 py-3 text-sm">
-                            {{$value->brand_name}}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{$value->subcategory_name}}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{$value->type_name}}
-                        </td>
-                        <td class="px-4 py-3 text-sm text-center no-export">
-                            <a href ="{{route('product.edit',$value)}}"  style=" border: none;" 
-                            class="p-2 focus:outline-none focus:shadow-outline-gray
-                             editar text-sm font-medium leading-5 text-gray-700
-                              hover:text-gray-900 transition-colors duration-150
-                               dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>
-                            
-                            {!! Form::open(['route' => ['product.destroy', $value], 'method' => 'delete']) !!}
-                            @csrf
-                            <button type="submit" class="p-2 focus:outline-none focus:shadow-outline-gray eliminar 
-                            text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded">
-                                <i class="fas fa-trash-alt"></i> </button>
-                            {!! Form::close() !!}
-                        </td>
-                    </tr>
-                    @endforeach
-
-                </tbody>
+                
             </table>
         </div>
       
@@ -107,7 +52,69 @@
 	minute: 'numeric',
 	second: 'numeric'
  }).replace(',', '').replace(/\//g, '-');
-    $('table.display').DataTable({
+ $.fn.dataTable.ext.errMode = 'none';
+ 
+ t=$('table.display').DataTable({
+     ajax:"{{route('datatable.product')}}",
+     columns: [
+     { 
+         render: function (data, type, row, meta) {
+
+             html= '<div class="px-3 py-3 ">'+
+                         '<div class="flex items-center text-sm">'+
+                             '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
+                                 '<img class="object-cover w-full h-full rounded-full" src="{{ Storage::url(":image") }}"/>'+
+                                
+                             '</div>'+
+                             '<div>'+
+                                 '<p class="font-semibold">'+row.name+'</p>'+
+                             '</div>'+
+                        ' </div>'+
+                     '</div>';
+
+         html = html.replace(/:image/g, row.image);
+         return html;
+   
+         }
+     },
+   
+    { 
+            render: function (data, type, row, meta) {
+                return  '<td class="px-4 py-3 text-sm">'+
+                            '<button class="px-2 py-2 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(\'' + row.code + '\')" title="Copiar"><img src="{{route("barcode.generate", ":code")}}" alt="Barcode"></button>'+
+                            '<p hidden>'+row.code+'</p>'+
+                        '</td>'.replace(/:code/g, row.code);
+            },
+        },
+     { data: 'description', name: 'description' },
+     { data: 'price', name: 'price' },
+     { data: 'presentation', name: 'presentation' },
+     {
+    render: function (data, type, row, meta) {
+        return '<td class="px-4 py-3 text-sm">' +
+            '<span class="px-2 py-1 text-xs font-semibold rounded ' + (row.status ? 'bg-lime-600 text-white dark:text-white dark:bg-lime-600' : 'bg-red-500 text-white dark:text-white dark:bg-red-600') + '">' +
+            (row.status ? 'Active' : 'Inactive') +
+            '</span>' +
+            '</td>';
+    },
+},
+
+     { data: 'brand_name', name: 'brand_name' },
+     { data: 'subcategory_name', name: 'subcategory_name' },
+     { data: 'type_name', name: 'type_name' },
+     {
+            render: function (data, type, row, meta) {
+        var baseId = row.id;
+        var editUrl = "{{ route('product.edit', ':id') }}";
+        editUrl = editUrl.replace(':id', baseId);
+
+    var html = ' <a href="{{route("product.edit", ":id")}}" style="border: none;" class="p-2 focus:outline-none focus:shadow-outline-gray editar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"><i class="fas fa-edit"></i></a>'+
+               '<button class="p-2 focus:outline-none focus:shadow-outline-gray eliminar text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 transition-colors duration-150 dark:text-gray-400 rounded"  data-id="' + row.id + '"><i class="fas fa-trash-alt"></i></button>';
+        html = html.replace(/:id/g, row.id);
+    return html;
+        }
+        }
+ ],
 
         "paging": true,
 		"lengthChange": true,
@@ -165,16 +172,17 @@
 			exportOptions: {
 				columns: ':not(.no-export)'
 			},
-			filename: "Lista de Empleados generado el "+ day,
-			title: "Detalles de Empleados",
+			filename: "Lista de Productos generado el "+ day,
+			title: "Detalles de Productos",
 		}, {
 			extend: 'pdf',
 			text: '<i class="fas fa-file-pdf"></i> PDF',
 			exportOptions: {
 				columns: ':not(.no-export)'
 			},
-			filename: "Lista de Empleados generado el "+ day,
-			title: "Detalles de Empleados",
+            orientation: 'landscape', // Establecer la orientación a 'landscape'
+			filename: "Lista de Productos generado el "+ day,
+			title: "Detalles de Productos",
 			messageBottom: "\n Reporte generado el " + day,
 			header: true,
 			footer: true,
@@ -208,7 +216,7 @@
 			exportOptions: {
 				columns: ':not(.no-export)'
 			},
-			filename: "Lista de Empleados generado el "+ day,
+			filename: "Lista de Productos generado el "+ day,
 			title: "Reporte generado el " + day,
 		}, ],
         rowCallback: function(row, data, index) {
@@ -218,6 +226,84 @@
 
 
 
+    $(document).on('click', '.eliminar', function () {
+        var button = $(this);
+
+Swal.fire({
+  title: 'Eliminar Empleado',
+  text: '¿Está seguro de eliminar este registro?',
+  icon: 'warning',
+  input: 'password',
+  inputPlaceholder: 'Ingrese su contraseña',
+  showCancelButton: true,
+  confirmButtonColor: '#ffc107', // Color amarillo
+  cancelButtonColor: '#dc3545', // Color rojo
+  confirmButtonText: 'Sí',
+  cancelButtonText: 'Cancelar',
+  preConfirm: (password) => {
+    if (!password) {
+      Swal.showValidationMessage('Debe ingresar su contraseña');
+    }
+    return password;
+  },
+}).then((result) => {
+  if (result.isConfirmed) {
+    let password = result.value;
+    let id = $(this).attr('data-id');
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $.get('{{ route("user.checkPassword", ":password") }}'.replace(':password', password), { _token: csrfToken })
+  .done(function(response) {
+        if (response.valid) {
+          var row = button.closest('tr');
+          deleteFila(id, row);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Contraseña incorrecta',
+            text: 'La contraseña proporcionada es incorrecta.',
+          });
+        }
+      })
+      .fail(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al verificar la contraseña.',
+        });
+      });
+  }
+});
+
+
+  
+});
+function deleteFila(id,row) {
+    $.ajax({
+        url: '{{ route("product.destroyed", ":id") }}'.replace(':id', id),
+        type: 'DELETE',
+        data: {
+            '_token': '{{ csrf_token() }}'
+        },
+        success: function (data) {
+            Swal.fire({
+            icon: 'success',
+            title: 'Se eliminó a ' + data.message + ' del registro',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false
+            }).then(function () {
+                t.row(row).remove().draw(false);
+            });
+        }
+    }).fail(function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al eliminar el registro',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    });
+}
 
 
 
@@ -250,4 +336,33 @@
         $('button.dt-button').removeClass('dt-button');
 
 </script>
+
+@if(session('success') != null)
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: '{{ session("success") }}',
+        showConfirmButton: false,
+        timer: 1500
+    })
+
+    // Eliminar la sesión 'success' después de mostrar el mensaje
+    @php
+        session()->forget('success');
+    @endphp
+</script>
+@endif
 @endsection
