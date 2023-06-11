@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Session;
 class LogoutController extends Controller
 {
     public function logout (){
-        Session::flush();
-        Auth::logout();
-        return redirect (route('auth.login'));
+
+        if (Auth::check()) {
+            Auth::user()->currentAccessToken()->delete();
+            Session::flush();
+            Auth::logout();
+        }
+        return redirect(route('auth.login'));
     }
 }

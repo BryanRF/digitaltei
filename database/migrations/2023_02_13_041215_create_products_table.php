@@ -25,12 +25,10 @@ return new class extends Migration
             $table->string('image')->default('images/default_product.png');
             $table->unsignedInteger('brand_id')->required();
             $table->unsignedInteger('subcategory_id')->required();
-            $table->unsignedInteger('type_id')->required();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->foreign('subcategory_id')->references('id')->on('sub_categories');
-            $table->foreign('type_id')->references('id')->on('types');
 
         });
     }

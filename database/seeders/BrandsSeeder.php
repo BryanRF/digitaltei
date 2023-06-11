@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\BrandFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Brand;
 use Illuminate\Database\Seeder;
 
 class BrandsSeeder extends Seeder
@@ -15,6 +14,12 @@ class BrandsSeeder extends Seeder
      */
     public function run()
     {
-        BrandFactory::times(10)->create();
+        $marcas = array('LG', 'Samsung', 'HP', 'Dell', 'Acer', 'Asus', 'AOC', 'ViewSonic', 'Philips', 'Lenovo','Apple', 'Logitech', 'Microsoft', 'Genius');
+        foreach ($marcas as $marca) {
+            Brand::factory()->create([
+                'name' => $marca,
+                'image' => 'images/'.$marca.'.png',
+            ]);
+        }
     }
 }

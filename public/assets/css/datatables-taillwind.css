@@ -163,3 +163,45 @@ transform: translate(-50%, -50%);
 
 
 
+label.block {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2D3748;
+  }
+  
+  input.block {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: #2D3748;
+    border: 1px solid #CBD5E0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    background-color: #F7FAFC;
+  }
+  
+  input.dark {
+    color: #D1D5DB;
+    border-color: #4A5568;
+    background-color: #2D3748;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  input.dark:focus {
+    outline: none;
+  }
+  
+  input::placeholder {
+    color: #A0AEC0;
+  }
+  
+  input.dark::placeholder {
+    color: #4A5568;
+  }
+  

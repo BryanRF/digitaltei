@@ -27,24 +27,26 @@ class LoginController extends Controller
            if (!Auth::attempt($request->only('email', 'password'))) {
                return redirect()->to(route('auth.login'))->withErrors(['auth' => 'Estas credenciales no coinciden con nuestros registros.']);
            }
-       
+
            $user = Auth::getProvider()->retrieveByCredentials($request->only('email', 'password'));
-           
+
            $isEmployee = User::where('id', auth()->user()->id)
            ->whereNotNull('employee_id')
            ->first();
-       
-       if (!$isEmployee) {
-           Session::flush();
-           Auth::logout();
-       }
-          
+
+            if (!$isEmployee) {
+                Session::flush();
+                Auth::logout();
+            }
+
+
            return $this->authenticated($request, $user);
        }
       public function authenticated(Request $request,$user){
+            $user->createToken($user->email)->plainTextToken;
             return  redirect()->to(route('home'));
 
       }
-   
-      
+
+
 }

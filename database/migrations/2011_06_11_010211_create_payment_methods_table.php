@@ -12,15 +12,13 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('image', function (Blueprint $table) {
-        $table->increments('id');
-        $table->unsignedInteger('product_id')->required();
-        $table->string('name', 100)->required();
-        $table->timestamps();
-        $table->foreign('product_id')->references('id')->on('products');
-    });
-}
+    {
+        Schema::create('payment_methods', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('utilities');
+        Schema::dropIfExists('payment_methods');
     }
 };

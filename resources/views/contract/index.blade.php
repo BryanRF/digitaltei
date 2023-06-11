@@ -72,7 +72,7 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:button active:button button hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.document+'</button>'+
                         '</td>';
             },
         },
@@ -80,7 +80,7 @@
         { 
             render: function (data, type, row, meta) {
                 return  '<td class="px-4 py-3 text-sm">'+
-                            '<button class="px-2 py-1 text-xs font-semibold hover:bg-gray-600 hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.code+'</button>'+
+                            '<button class="px-2 py-1 text-xs font-semibold hover:button active:button button hover:text-white leading-tight text-black bg-gray-300 rounded " onclick="copyText(this.innerText)" title="Copiar">'+row.code+'</button>'+
                         '</td>';
             },
         },
@@ -95,16 +95,16 @@
                 html ="";
                 if (row.file != null) {
                     if (row.file.indexOf('.pdf') !== -1) {
-                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-red-500 text-xs hover:bg-red-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" text-xs class="bg-red-500 hover:bg-red-600 text-white  font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> PDF' +
                                '</a>';
                     } else if (row.file.indexOf('.doc') !== -1) {
-                        html= '<a href="{{ Storage::url(":archivefile") }}" class="bg-blue-500 text-xs hover:bg-blue-600 text-white font-bold p-2 text-center rounded" download>' +
+                        html= '<a href="{{ Storage::url(":archivefile") }}" text-xs bg-blue-500 hover:bg-blue-600 text-white text-white font-bold p-2 text-center rounded" download>' +
                                '<i class="fas fa-download"></i> Word' +
                                '</a>';
                     }
                 } else {
-                    html= '<button disabled class="text-xs text-black bg-gray-300 p-2 text-center rounded" title="Sin archivo">' +
+                    html= '<button disabled class="text-xs text-black hover:button active:button button p-2 text-center rounded" title="Sin archivo">' +
                            '<i class="fas fa-download"></i> Sin registro' +
                            '</button>';
                 }

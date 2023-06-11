@@ -7,11 +7,13 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\RecycleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\BarcodeController;
+use App\Http\Controllers\ImageController;
 //!-----------------------------------------------------------------------------------------------------------------------------------
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -24,10 +26,11 @@ use App\Http\Controllers\DataTables\CategoryDataTables;
 use App\Http\Controllers\DataTables\SubCategoryDataTables;
 use App\Http\Controllers\DataTables\ContractDataTables;
 use App\Http\Controllers\DataTables\EmployeeDataTables;
+use App\Http\Controllers\DataTables\SaleDataTables;
 //!-----------------------------------------------------------------------------------------------------------------------------------
 //*-----------------------------------------------------------------------------------------------------------------------------------
 //TODO: Paginas autorizadas por login
-Route::middleware(['auth.check','verified'])->group(function () {
+Route::middleware(['auth.check','verified','auth:sanctum'])->group(function () {
     //! Paginas
     Route::get('inicio', HomeController::class)->name('home');
     //! Empleados
@@ -45,9 +48,18 @@ Route::middleware(['auth.check','verified'])->group(function () {
     //! Productos
     Route::resource('productos',ProductController::class)->parameters(['productos'=>'product'])->names('product');
     Route::delete('productos/{id}', [ProductController::class, 'destroy'])->name('product.destroyed');
+    //! Imagenes
+    Route::get('productos/images/{id}', [ImageController::class, 'create'])->name('image.create');
+    Route::post('productos/images/{id}', [ImageController::class, 'store'])->name('image.store');
+    Route::delete('images/{id}', [ImageController::class, 'destroy'])->name('image.destroyed');
+    //! Productos
+    Route::resource('pedidos',SaleController::class)->parameters(['pedidos'=>'sale'])->names('sale');
+    // Route::delete('productos/{id}', [ProductController::class, 'destroy'])->name('product.destroyed');
 
     //*-----------------------------------------------------------------------------------------------------------------------------------
     //!-----------------------------------------------------------------------------------------------------------------------------------
+    //TODO: DATA TABLES-------------------------------------------------------------------------------------------------------------------
+
     //TODO: Priv Productos
     Route::get('datatable/product', [ProductDataTables::class, 'product'])->name('datatable.product');
     //TODO: Priv Categoria
@@ -63,6 +75,8 @@ Route::middleware(['auth.check','verified'])->group(function () {
     Route::get('datatable/empleados/contratos/{id}', [ContractDataTables::class, 'contractById'])->name('datatable.contract.employee');
     Route::get('datatable/contratos', [ContractDataTables::class, 'contract'])->name('datatable.contract');
     Route::get('datatable/contratos/trashed', [ContractDataTables::class, 'contractTrashed'])->name('datatable.contract.trashed');
+    //TODO: Priv Pedidos
+    Route::get('datatable/pedidos', [SaleDataTables::class, 'sale'])->name('datatable.sale');
 });
 
 //*-----------------------------------------------------------------------------------------------------------------------------------

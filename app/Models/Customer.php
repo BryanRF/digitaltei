@@ -14,6 +14,14 @@ class Customer extends Model
     use HasFactory;
     use SoftDeletes;
     protected $guarded =[];
+
+    public function sales()
+    {
+        //$customer = Customer::find(1);
+        // $sales = $customer->sales;
+        return $this->hasMany(Sale::class, 'customer_id');
+
+    }
     protected function name(): Attribute
     {
         return new Attribute(
@@ -37,4 +45,5 @@ class Customer extends Model
             set:fn($value) => strtolower($value)
         );
     }
+   
 }

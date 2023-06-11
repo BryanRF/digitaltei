@@ -16,17 +16,20 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('customer_id')->required();
-            $table->unsignedInteger('employee_id')->nulleable();
+            $table->unsignedInteger('employee_id')->nullable();
+            $table->unsignedInteger('payment_method_id')->required();
             $table->date('date');
+            $table->string('code')->unique();
             $table->decimal('total_amount', 8, 2);
-            $table->string('payment_method');
             $table->string('payment_status');
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->string('status');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
             $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->timestamps();
             $table->softDeletes();
         });
-        
+
     }
 
     /**

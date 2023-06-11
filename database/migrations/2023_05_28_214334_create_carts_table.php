@@ -14,8 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->unsignedInteger('customer_id')->required();
+            $table->date('date');
+            $table->string('code')->unique();
+            $table->decimal('total_amount', 8, 2);
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

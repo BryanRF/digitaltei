@@ -3,43 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
-use App\Models\Type;
+
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index():JsonResponse
     {
-        $data = Product::select(
-            'products.id',
-            'products.name',
-            'products.description',
-            'products.price',
-            'products.presentation',
-            'products.status',
-            'products.slug',
-            'products.image',
-            // 'products.utility',
-            'brands.name as brand_name',
-            'sub_categories.name as subcategory_name',
-            'types.name as type_name'
-        )
-        ->join('brands', 'products.brand_id', '=', 'brands.id')
-        ->join('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-        ->join('types', 'products.type_id', '=', 'types.id')
-        ->orderBy('products.id', 'DESC')
-        ->get();
+        $data = Product::with('brand','subCategory','images')->orderBy('products.id', 'DESC')->get();
         return response()->json($data);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -48,9 +25,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
-
     /**
      * Display the specified resource.
      *
@@ -59,58 +34,24 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
     }
-
     public function showbycategory($id)
     {
         $subcategories = SubCategory::where('category_id', $id)->pluck('id');
-        $data = Product::select(
-            'products.id',
-            'products.name',
-            'products.description',
-            'products.price',
-            'products.presentation',
-            'products.status',
-            'products.slug',
-            'products.image',
-            'brands.name as brand_name',
-            'sub_categories.name as subcategory_name',
-            'types.name as type_name'
-        )
-        ->join('brands', 'products.brand_id', '=', 'brands.id')
-        ->join('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-        ->join('types', 'products.type_id', '=', 'types.id')
+        $data = Product::with('brand','subCategory','images')
         ->whereIn('products.subcategory_id', $subcategories)
         ->orderBy('products.id', 'DESC')
         ->get();
         return response()->json($data);
     }
-
     public function showbysubcategory($id)
     {
-         $data = Product::select(
-        'products.id',
-        'products.name',
-        'products.description',
-        'products.price',
-        'products.presentation',
-        'products.status',
-        'products.slug',
-        'products.image',
-        'brands.name as brand_name',
-        'sub_categories.name as subcategory_name',
-        'types.name as type_name'
-    )
-    ->join('brands', 'products.brand_id', '=', 'brands.id')
-    ->join('sub_categories', 'products.subcategory_id', '=', 'sub_categories.id')
-    ->join('types', 'products.type_id', '=', 'types.id')
-    ->where('products.subcategory_id', $id)
-    ->orderBy('products.id', 'DESC')
-    ->get();
-    return response()->json($data);
+        $data = Product::with('brand','subCategory','images')
+        ->where('products.subcategory_id', $id)
+        ->orderBy('products.id', 'DESC')
+        ->get();
+        return response()->json($data);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -122,7 +63,6 @@ class ProductController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *

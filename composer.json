@@ -13,7 +13,7 @@
         "intervention/image": "^2.7",
         "laravel-latam/spanish": "^1.1",
         "laravel/framework": "^9.19",
-        "laravel/sanctum": "^3.0",
+        "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.3",
         "picqer/php-barcode-generator": "^2.2",

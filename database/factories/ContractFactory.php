@@ -24,7 +24,7 @@ class ContractFactory extends Factory
         $startDate = $this->faker->date();
         $monthsToAdd = $this->faker->numberBetween(3, 6); // Genera un número aleatorio entre 3 y 6
         $endDate = Carbon::parse($startDate)->addMonths($monthsToAdd)->format('Y-m-d');
-        
+
         return [
             'employee_id' => rand(1, 10),
             'job_id' => rand(1, 5),

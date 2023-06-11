@@ -16,10 +16,9 @@ class BrandFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => $this->faker->unique()->company,
-            'image' => 'images/default_product.png',
 
-       ];
+        return [
+            //
+        ];
     }
 }

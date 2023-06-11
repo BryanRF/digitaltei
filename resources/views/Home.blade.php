@@ -7,8 +7,8 @@
     <!-- CTA -->
 
     <a class="flex items-center justify-between
-     p-4 mb-8 text-sm font-semibold text-purple-600 bg-base-600 
-     rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple">
+        p-4 mb-8 text-sm font-semibold text-purple-600 bg-base-600
+        rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple">
         <div class="flex items-center">
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -35,7 +35,7 @@
                     Total de Clientes
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    6389
+                    {{$data ['TotalCustomers']}}
                 </p>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     Ganancias del mes
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    S/. 4,760.89
+                    {{$data ['MonthlyEarnings']       }}
                 </p>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     Ventas del mes
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    376
+                    {{ $data ['MonthlySales']}}
                 </p>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     Pedidos Pendientes
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    35
+                    {{$data['PendingOrders']}}
                 </p>
             </div>
         </div>
@@ -98,7 +98,7 @@
         Tareas de desarrollo
     </h2>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        
+
         <div class="w-full overflow-x-auto">
             <table  id="task" class="w-full whitespace-no-wrap">
                 <thead>
@@ -109,8 +109,7 @@
                         <th class="px-4 py-3">Fecha inicio</th>
                         <th class="px-4 py-3">Fecha maxima</th>
                         <th class="px-4 py-3">Estado</th>
-
-                    </tr> 
+                    </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach($task as $value)
@@ -151,19 +150,12 @@
                             </span>
                         @endif
                         </td>
-                     
                     </tr>
                     @endforeach
-                  
-                    
-                  
-
-                    
                 </tbody>
             </table>
         </div>
         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-           
         </div>
     </div>
     <!-- New Table -->
@@ -171,7 +163,7 @@
         Pedidos
     </h2>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        
+
         <div class="w-full overflow-x-auto">
             <table id="pedidos"class="w-full whitespace-no-wrap">
                 <thead>
@@ -181,7 +173,6 @@
                         <th class="px-4 py-3">Monto</th>
                         <th class="px-4 py-3">Estado</th>
                         <th class="px-4 py-3">Fecha</th>
-                        {{-- <th class="px-4 py-3">Opciones</th> --}}
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -206,7 +197,7 @@
                             </div>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                           +51 985 685 265
+                            +51 985 685 265
                         </td>
                         <td class="px-4 py-3 text-sm">
                             S/. 863.45
@@ -219,9 +210,7 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                       
                     </tr>
-
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
@@ -244,7 +233,7 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             +51 985 685 265
-                         </td>
+                        </td>
                         <td class="px-4 py-3 text-sm">
                             S/. 369.95
                         </td>
@@ -256,7 +245,7 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                        
+
                     </tr>
 
                     <tr class="text-gray-700 dark:text-gray-400">
@@ -294,8 +283,8 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                    
-                    
+
+
                     </tr>
 
                     <tr class="text-gray-700 dark:text-gray-400">
@@ -333,13 +322,13 @@
                         <td class="px-4 py-3 text-sm">
                             6/10/2020
                         </td>
-                        
+
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-           
+
         </div>
     </div>
 
@@ -388,7 +377,7 @@
         </div>
     </div> --}}
 
-    
+
 </div>
 <script>
     $(document).ready(function() {

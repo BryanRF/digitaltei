@@ -8,6 +8,11 @@ use Illuminate\Http\JsonResponse;
 class CustomerTypeController extends Controller
 {
     
+//     public function index($customerId): JsonResponse
+// {
+//     $customerSales = Sale::where('customer_id', $customerId)->get();
+//     return response()->json($customerSales);
+// }
     public function index():JsonResponse
     {
         $data = CustomerType::all();

@@ -1,21 +1,21 @@
 <?php
 
 namespace Database\Seeders;
-
-use Database\Factories\CategoryFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
-        CategoryFactory::times(10)->create();
+        $categorias = array('Computadoras','Monitores','Accesorios','Camaras','Impresoras','Componentes');
+        foreach ($categorias as $categoria) {
+            Category::factory()->create([
+                'name' => $categoria,
+                'image' => 'images/'.$categoria.'.png',
+            ]);
+        }
 
     }
 }
